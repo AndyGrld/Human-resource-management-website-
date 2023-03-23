@@ -23,9 +23,6 @@ body{
     justify-items: center;
 
 }
-.grid1 form div input{
-    width:inherit;
-}
 .forms input{
     background-color: rgb(43, 43, 43);
     padding: 10px;
