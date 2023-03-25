@@ -22,7 +22,9 @@ class User(db.Model, UserMixin):
 class Employee(db.Model):
     emp_id = db.Column(db.Integer, db.Foreignkey("user.id"))
     date_employed = db.Column(db.Date)
+    about = db.Column(db.String(150), default="No description")
     skills = db.Column(db.String(100))
+    work_email = db.Column(db.String(50))
     isManager = db.Column(db.Boolean, default=False)
     JOB = db.relationship('Jobs')
     PROJECT = db.relationship('Projects')
@@ -41,9 +43,13 @@ class Projects(db.Model):
 class Job(db.Model):
     job_id = db.Column(db.Integer, db.Foreignkey('employee.emp_id'))
     name = db.Column(db.String(50), nullable=False)
+    isAvailable = db.Column(db.Boolean, default=True)
     job_description = db.Column(db.String(300), default='No information')
     manager = db.Column(db.String(200), default='C.E.O')
     salary = db.Integer(db.Integer)
+    skills = db.Column(db.String(100))
+    startApply = db.Column(db.Date, default=datetime.date.today())
+    endApply = db.Column(db.Date, default=None)
     type = db.Column(db.String(10), default="Full time")
 
 

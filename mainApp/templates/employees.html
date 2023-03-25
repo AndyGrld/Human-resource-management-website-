@@ -14,80 +14,24 @@
     {% includes 'navbar.html' %}
 
     <div class="hero">
-        <h1>Meet some of our valuable employees</h1>
+        <h1>Co-workers and staff</h1>
     </div>
     <div class="employees">
+        {% for one in all %}
+        {% if one.EMPLOYEE %}
         <a href="{{ url_for('static', filename='dashboard')}}"><div class="ep_row">
             <div class="img"><img src="{{ url_for('static', filename='img/faces/face2.jfif')}}" alt="img"></div>
             <div class="desc">
                 <div class="para">
-                    <h1>Randy Appah</h1>
-                    <p>Lorem ipsum dolor, sit amet consectetur 
-                    adipisicing elit. Debitis nisi autem vero 
-                    sequi. Cupiditate esse iure culpa tempore 
-                    numquam labore voluptate laudantium 
-                    dignissimos itaque ad beatae dicta natus, 
-                    explicabo consectetur autem, quis atque 
-                    facere error. Porro architecto cum aliquam 
-                    eveniet!</p>
+                    <h1>{{one.lastName}} {{one.firstName}}</h1>
+                    <p>{{all[employees.emp_id - 1].about}}</p>
                 </div>
-                <div class="skills"><p>Skills: Lorem ipsum, dolor sit, amet consectetur, adipisicing elit, Iusto ratione.</p></div>
-                <div class="date"><p>Joined on: January 25, 2020</p></div>
+                <div class="skills"><p>Skills: {{all[employees.emp_id - 1].skills}}</p></div>
+                <div class="date"><p>Joined on: {{all[employees.emp_id - 1].date_employed}}</p></div>
             </div>
         </div></a>
-        <a href="{{ url_for('static', filename='dashboard')}}"><div class="ep_row">
-            <div class="img"><img src="{{ url_for('static', filename='img/faces/face6.jfif')}}" alt="img"></div>
-            <div class="desc">
-                <div class="para">
-                    <h1>Margaret March</h1>
-                    <p>Lorem ipsum dolor, sit amet consectetur 
-                    adipisicing elit. Debitis nisi autem vero 
-                    sequi. Cupiditate esse iure culpa tempore 
-                    numquam labore voluptate laudantium 
-                    dignissimos itaque ad beatae dicta natus, 
-                    explicabo consectetur autem, quis atque 
-                    facere error. Porro architecto cum aliquam 
-                    eveniet!</p>
-                </div>
-                <div class="skills"><p>Skills: Lorem ipsum, dolor sit, amet consectetur, adipisicing elit, Iusto ratione.</p></div>
-                <div class="date"><p>Joined on: September 13, 2018</p></div>
-            </div>
-        </div></a>
-        <a href="{{ url_for('static', filename='dashboard')}}"><div class="ep_row">
-            <div class="img"><img src="{{ url_for('static', filename='img/faces/face4.jfif')}}" alt="img"></div>
-            <div class="desc">
-                <div class="para">
-                    <h1>May Madalene</h1>
-                    <p>Lorem ipsum dolor, sit amet consectetur 
-                    adipisicing elit. Debitis nisi autem vero 
-                    sequi. Cupiditate esse iure culpa tempore 
-                    numquam labore voluptate laudantium 
-                    dignissimos itaque ad beatae dicta natus, 
-                    explicabo consectetur autem, quis atque 
-                    facere error. Porro architecto cum aliquam 
-                    eveniet!</p>
-                </div>
-                <div class="skills"><p>Skills: Lorem ipsum, dolor sit, amet consectetur, adipisicing elit, Iusto ratione.</p></div>
-                <div class="date"><p>Joined on: May 31, 2020</p></div>
-            </div>
-        </div></a>
-        <a href="{{ url_for('static', filename='dashboard')}}"><div class="ep_row">
-            <div class="img"><img src="{{ url_for('static', filename='img/faces/face3.jfif')}}" alt="img"></div>
-            <div class="desc">
-                <div class="para">
-                    <h1>Jack Jackson</h1>
-                    <p>Lorem ipsum dolor, sit amet consectetur 
-                    adipisicing elit. Debitis nisi autem vero 
-                    sequi. Cupiditate esse iure culpa tempore 
-                    numquam labore voluptate laudantium 
-                    dignissimos itaque ad beatae dicta natus, 
-                    explicabo consectetur autem, quis atque 
-                    facere error. Porro architecto cum aliquam 
-                    eveniet!</p>
-                </div>
-                <div class="skills"><p>Skills: Lorem ipsum, dolor sit, amet consectetur, adipisicing elit, Iusto ratione.</p></div>
-                <div class="date"><p>Joined on: July 04, 2021</p></div>
-            </div>
-        </div></a>
+        {% endif %}
+        {% endfor %}
+
     </div>
 {% endblock %}

@@ -16,23 +16,23 @@
         <h1>Work with Us</h1>
     </div>
     <div class="employees">
-        <a href="{{ url_for('static', filename='job')}}"><div class="ep_row">
+
+          {% for job in jobs %}
+          {% if job.isAvailable %}
+          <a href="{{ url_for('static', filename='job')}}">
+            <div class="ep_row">
             <div class="desc">
-                <div class="para">
-                    <h1>Project Manager</h1>
-                    <p>Lorem ipsum dolor, sit amet consectetur 
-                    adipisicing elit. Debitis nisi autem vero 
-                    sequi. Cupiditate esse iure culpa tempore 
-                    numquam labore voluptate laudantium 
-                    dignissimos itaque ad beatae dicta natus, 
-                    explicabo consectetur autem, quis atque 
-                    facere error. Porro architecto cum aliquam 
-                    eveniet!</p>
+            <div class="para">
+                    <h1>{{job.name}}</h1>
+                    <p>{{job.job_description}}</p>
                 </div>
-                <div class="skills"><p>Skills: Lorem ipsum, dolor sit, amet consectetur, adipisicing elit, Iusto ratione.</p></div>
-                <div class="date"><p>Application Started: January 25, 2023</p></div>
-                <div class="date"><p>Application Ends: April 25, 2023</p></div>
+                <div class="skills"><p>Skills: {{job.skills}}</p></div>
+                <div class="date"><p>Application Started: {{job.startApply}}</p></div>
+                <div class="date"><p>Application Ends: {{job.endApply}}</p></div>
             </div>
-        </div></a>
+          </div>
+        </a>
+          {% endif %}
+          {% endfor %}
     </div>
 {% endblock %}

@@ -2,13 +2,21 @@
         <img src="{{url_for('static', filename='img/home.png)}}" alt="logo" id="logo">
         <ul>
             <li><a href="{{url_for('/')}}">Home</a></li>
+            {% if user.is_authenticated %}
             <li><a href="{{url_for('dashboard')}}">Dashboard</a></li>
-            <li><a href="{{url_for('jobs')}}">Jobs</a></li>
             <li><a href="{{url_for('employees')}}">Employees</a></li>
+            {% endif %}
+            {% if not user.EMPLOYEE %}
+            <li><a href="{{url_for('jobs')}}">Jobs</a></li>
+            {% endif %}
             <li><a href="{{url_for('about')}}">About Us</a></li>
         </ul>
         <ul class="prof">
+            {% if user.is_authenticated %}
+            <li><a href="{{url_for('logout')}}">Logout</a></li>
+            {% else %}
             <li><a href="{{url_for('signup')}}">SignUp</a></li>
+            {% endif %}
             <li><a href="{{url_for('contactus')}}">Contact Us</a></li>
         </ul>
     </div>
