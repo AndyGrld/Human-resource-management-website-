@@ -1,29 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="../static/styles.css">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div class="nav">
-        <img src="../static/img/home.png" alt="logo" id="logo">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="dashboard.html">Dashboard</a></li>
-            <li><a href="jobs.html">Jobs</a></li>
-            <li><a href="employees.html">Employees</a></li>
-            <li><a href="about.html">About Us</a></li>
-        </ul>
-        <ul class="prof">
-            <li><a href="signup.html">SignUp</a></li>
-            <li><a href="contactus.html">Contact Us</a></li>
-        </ul>
-    </div>
+{% extends 'base.html' %}
+{% block title %}Your name{% endblock %}
+{% block body %}
+    {% includes 'navbar.html' %}
     <div class="header">
-        <img src="../static/img/faces/face2.jfif" alt="">
+        <img src="{{ url_for('static', filename='img/faces/face2.jfif')}}" alt="">
         <div class="header2">
             <div id="name">
                 <h1>Randy Appiah</h1>
@@ -31,7 +11,7 @@
             <ul id="list">
                 <li><a href="#personal_details">Personal Details</a></li>
                 <li><a href="#job_details">Job and salary</a></li>
-                <li><a href="#perfom_details">Performance and skills</a></li>
+                <li><a href="#perform_details">Performance and skills</a></li>
                 <li><a href="#project_details">Projects</a></li>
             </ul>
             <br><hr>
@@ -54,7 +34,7 @@
             <div id="key">Job Title</div>
             <div id="value">Civil engineer</div>
             <div id="key">Manager</div>
-            <div id="value"><a href="#">May Mandalene</a></div>
+            <div id="value"><a href="{{ url_for('dashboard')}}">May Mandalene</a></div>
             <div id="key">Manages</div>
             <div id="value">None</div>
             <div id="key">Work Email</div>
@@ -67,7 +47,7 @@
             <div id="value">Ghc 3,300 per month</div>
         </div>
     </div>
-    <div class="details" id="perfom_details">
+    <div class="details" id="perform_details">
         <h1>Performance and skills</h1>
         <div class="tabular">
             <div id="key">Performance</div>
@@ -85,5 +65,4 @@
             <div id="value">Construction of the hall</div>
         </div>
     </div>
-</body>
-</html>
+{% endblock %}
