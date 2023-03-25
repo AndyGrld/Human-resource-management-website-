@@ -44,14 +44,14 @@ def send_mail(C_user):
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        acc_num = request.form.get('account_num')
-        password = request.form.get('pass')
+        email = request.form.get('email')
+        password = request.form.get('pass1')
 
-        user = User.query.filter_by(accountNo=acc_num).first()
+        user = User.query.filter_by(emial=email).first()
         if user:
             if check_password_hash(user.password, password):
                 flash('Logged in successfully!', category='success')
-                login_user(user, remember=False)
+                login_user(user, remember=True)
                 return redirect(url_for('views.home'))
             else:
                 flash('Incorrect password, try again', category='error')
@@ -83,8 +83,10 @@ def sign_up():
         phone = request.form.get('phone')
         email = request.form.get('email')
         date_of_birth = request.form.get('dob')
-        password = request.form.get('password')
-        password1 = request.form.get('password1')
+        password = request.form.get('pass1')
+        password1 = request.form.get('pass2')
+        user = request.form.get('user')
+        print(user)
         pic = request.files['pic']
         picname = secure_filename(pic.filename)
         pic_name = f'{str(uuid.uuid1())}_{email}_{picname}'
