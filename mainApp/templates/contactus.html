@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Contact Us{% endblock %}
 {% block body %}
-    {% includes 'navbar.html' %}
+    {% include 'navbar.html' %}
     <div class="contact_header"><h1>Mail Us</h1></div>
 
     <div class="grid_mail">
@@ -28,7 +28,7 @@
                 </div>
             </div>
         </div>
-        <form action="index.html">
+        <form method="POST">
             <input type="text" id="name" name="name" placeholder="Name">
             <input type="number" pattern="[0-9]{10}" id="tel" name="tel" placeholder="Telephone">
             <input type="email" id="email" name="email" placeholder="Email">

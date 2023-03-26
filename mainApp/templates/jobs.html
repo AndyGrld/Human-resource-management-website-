@@ -11,15 +11,15 @@
     </style>
     {% endblock %}
 {% block body %}
-    {% includes 'navbar.html' %}
+    {% include 'navbar.html' %}
     <div class="hero">
         <h1>Work with Us</h1>
     </div>
-    <div class="employees">
 
           {% for job in jobs %}
           {% if job.isAvailable %}
-          <a href="{{ url_for('static', filename='job')}}">
+    <div class="employees">
+          <a href="job">
             <div class="ep_row">
             <div class="desc">
             <div class="para">
@@ -32,7 +32,7 @@
             </div>
           </div>
         </a>
+    </div>
           {% endif %}
           {% endfor %}
-    </div>
 {% endblock %}

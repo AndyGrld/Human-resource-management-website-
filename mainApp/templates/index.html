@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}Homepage{% endblock %}
 {% block body %}
-    {% includes 'navbar.html' %}
+    {% include 'navbar.html' %}
     <div class="hero">
         <div class="center">
             <h1>Build your future with us</h1>
             <h2>Apply for a job right here, right now</h2><br>
-            <a href="{{url_forl('jobs')}}">REGISTER</a><br><br>
+            <a href="jobs">REGISTER</a><br><br>
             <h3>We are here for you</h3>
         </div>
     </div>

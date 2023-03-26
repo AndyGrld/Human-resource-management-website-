@@ -9,14 +9,13 @@
                 <input type="text" name="mname" id="mname" placeholder="Enter your middle name">
                 <input type="text" name="lname" id="lname" placeholder="Enter your last name">
                 <input type="email" name="email" id="email" placeholder="Enter your email">
-                <input type="number" name="phone" pattern="[0-9]{10}" id="phone">
+                <input type="number" name="phone" pattern="[0-9]{10}" id="phone" placeholder="Enter your phone number">
                 <input type="file" name="pic">
                 <input type="date" name="dob" id="dob">
                 <input type="password" name="pass1" id="pass1" placeholder="Enter a password">
                 <input type="password" name="pass2" id="pass2" placeholder="Confirm your password">
                 <button type="submit">Create an account</button>
-                <input type="checkbox" name="user" id="user">
-            <h3>Already a member?<a href="{{url_for('login')}}">Login in here</a></h3>
+            <h3>Already a member?<a href="login">Login in here</a></h3>
             </form>
         </div>
         <div class="grid2">

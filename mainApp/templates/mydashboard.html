@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}Your name{% endblock %}
 {% block body %}
-    {% includes 'navbar.html' %}
+    {% include 'navbar.html' %}
     <div class="header">
         <img src="{{url_for('static', filename='profiles/'+user.img)}}" alt="profile picture">
         <div class="header2">
             <div id="name">
-                <h1>{{user.lastName + user.firstName}}</h1>
+                <h1>{{user.lastName + " " + user.firstName}}</h1>
             </div>
             <ul id="list">
                 <li><a href="#personal_details">Personal Details</a></li>
@@ -21,7 +21,7 @@
         <h1>Personal Details</h1>
         <div class="tabular">
             <div id="key">Name</div>
-            <div id="value">{{user.lastName + user.firstName}}</div>
+            <div id="value">{{user.lastName + " " + user.firstName}}</div>
             <div id="key">Personal Email</div>
             <div id="value">{{user.email}}</div>
             <div id="key">Date of birth</div>
@@ -32,37 +32,57 @@
         <h1>Job and salary</h1>
         <div class="tabular">
             <div id="key">Job Title</div>
-            <div id="value">Civil engineer</div>
+            <div id="value">{{job.name}}</div>
             <div id="key">Manager</div>
-            <div id="value"><a href="{{ url_for('dashboard')}}">May Mandalene</a></div>
+            <div id="value">
+                {% if employee.isManager %}
+                <a href="mydashboard">{{user.lastName + " "  + user.firstName}}</a>
+                {% else %}
+                <a href="mydashboard">{{project.manager}}</a>
+                {% endif %}
+            </div>
             <div id="key">Manages</div>
-            <div id="value">None</div>
+            <div id="value">
+                {% if not employee.isManager %}
+                <a href="mydashboard">None</a>
+                {% else %}
+                <a href="mydashboard">{{project.manager}}</a>
+                {% endif %}
+            </div>
             <div id="key">Work Email</div>
-            <div id="value">RandyAppiah101hr@gmail.com</div>
+            <div id="value">{{employee.work_email}}</div>
             <div id="key">Date employed</div>
-            <div id="value">March 20, 2009</div>
+            <div id="value">{{employee.date_employed}}</div>
             <div id="key">Employee type</div>
-            <div id="value">Paid per month(part-time)</div>
+            <div id="value">{{job.type}}</div>
             <div id="key">Wage</div>
-            <div id="value">Ghc 3,300 per month</div>
+            <div id="value">Ghc {{job.salary}} per month</div>
         </div>
     </div>
     <div class="details" id="perform_details">
         <h1>Performance and skills</h1>
         <div class="tabular">
             <div id="key">Performance</div>
-            <div id="value">Hardworking, Efficient</div>
+            <div id="value">{{employee.performance}}</div>
             <div id="key">Skills</div>
-            <div id="value">Construction, Site Planning</div>
+            <div id="value">{{employee.skills}}</div>
         </div>
     </div>
     <div class="details" id="project_details">
         <h1>Projects</h1>
         <div class="tabular">
             <div id="key">Projects worked on</div>
-            <div id="value">Planning of the hall</div>
+            <div id="value">
+                {% for Project in project %}
+                    {{Project.name}}
+                {% endfor %}
+            </div>
             <div id="key">Projects working on</div>
-            <div id="value">Construction of the hall</div>
+            <div id="value">
+                {% for Project in project %}
+                    {{Project.name}}
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock %}

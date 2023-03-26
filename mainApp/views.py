@@ -3,7 +3,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from flask import Blueprint, render_template, request, flash
 from flask_login import current_user, login_required
-from models import Job, Employee, User
+from .models import Job, Employee, User
 
 from mainApp.auth import me, epassword
 
@@ -53,8 +53,10 @@ def contactUs():
 @login_required
 @views.route('/mydashboard')
 def mydashboard():
-    employee = Employee.query.filter_by(emp_id=current_user.id).first()
-    return render_template('mydashboard.html', user=current_user, employee=employee)
+    employee = Employee.query.filter_by(user_id=current_user.id).first()
+    job = Job.query.filter_by(id=employee.job_id).first()
+    project = employee.PROJECT
+    return render_template('mydashboard.html', user=current_user, employee=employee, project=project, job=job)
 
 
 @views.route('/dashboard')
@@ -65,8 +67,8 @@ def dashboard():
 @login_required
 @views.route('/employees')
 def employees():
-    return render_template('employees.html', user=current_user, all=User.query.all(),
-                           employees=Employee.query.all())
+    return render_template('employees.html', user=current_user, all_users=User.query.all(),
+                           employees=Employee)
 
 
 @login_required
@@ -77,4 +79,4 @@ def job():
 
 @views.route('/jobs')
 def jobs():
-    return render_template('jobs.html', user=current_user, jobs=Job)
+    return render_template('jobs.html', user=current_user, jobs=Job.query.all())

@@ -1,22 +1,26 @@
 <div class="nav">
-        <img src="{{url_for('static', filename='img/home.png)}}" alt="logo" id="logo">
+        <img src="{{url_for('static', filename='img/home.png')}}" alt="logo" id="logo">
         <ul>
-            <li><a href="{{url_for('/')}}">Home</a></li>
-            {% if user.is_authenticated %}
-            <li><a href="{{url_for('dashboard')}}">Dashboard</a></li>
-            <li><a href="{{url_for('employees')}}">Employees</a></li>
+            <li><a href="/">Home</a></li>
+            {% if user.EMPLOYEE %}
+            <li><a href="mydashboard">Dashboard</a></li>
+            <li><a href="employees">Employees</a></li>
+            {% endif %}
+            {% if user.is_admin %}
+            <li><a href="mydashboard">Dashboard</a></li>
+            <li><a href="employees">Employees</a></li>
             {% endif %}
             {% if not user.EMPLOYEE %}
-            <li><a href="{{url_for('jobs')}}">Jobs</a></li>
+            <li><a href="jobs">Jobs</a></li>
             {% endif %}
-            <li><a href="{{url_for('about')}}">About Us</a></li>
+            <li><a href="about">About Us</a></li>
         </ul>
         <ul class="prof">
             {% if user.is_authenticated %}
-            <li><a href="{{url_for('logout')}}">Logout</a></li>
+            <li><a href="logout">Logout</a></li>
             {% else %}
-            <li><a href="{{url_for('signup')}}">SignUp</a></li>
+            <li><a href="signup">SignUp</a></li>
             {% endif %}
-            <li><a href="{{url_for('contactus')}}">Contact Us</a></li>
+            <li><a href="contactus">Contact Us</a></li>
         </ul>
     </div>

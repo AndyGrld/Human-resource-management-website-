@@ -10,6 +10,43 @@ body{
     background-color: rgb(19, 19, 19);
     color:white;
 }
+input[type=number]::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+}
+
+
+/* message */
+.error_message, .success_message{
+  position:absolute;
+  width:100vw;
+  text-align:center;
+  z-index: 2;
+  padding: 5px;
+}
+.error_message button, .success_message button{
+  font-size: 30px;
+  color:white;
+}
+.error_message{
+  background-color: rgba(255, 101, 101,.9);
+}
+.error_message button{
+  background-color: rgb(138, 4, 4);
+  border-radius: 50%;
+  width: 20px;
+  font-size: 15px;
+  height: 20px;
+}
+.success_message{
+  background-color: rgba(101, 255, 101,.9);
+}
+.success_message button{
+  background-color: rgb(8, 128, 4);
+  border-radius: 50%;
+  width: 20px;
+  font-size: 15px;
+  height: 20px;
+}
 
 
 /* navbar */

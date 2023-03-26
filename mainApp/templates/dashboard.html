@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Your name{% endblock %}
 {% block body %}
-    {% includes 'navbar.html' %}
+    {% include 'navbar.html' %}
     <div class="header">
         <img src="{{ url_for('static', filename='img/faces/face2.jfif')}}" alt="">
         <div class="header2">
@@ -34,7 +34,7 @@
             <div id="key">Job Title</div>
             <div id="value">Civil engineer</div>
             <div id="key">Manager</div>
-            <div id="value"><a href="{{ url_for('dashboard')}}">May Mandalene</a></div>
+            <div id="value"><a href="dashboard">May Mandalene</a></div>
             <div id="key">Manages</div>
             <div id="value">None</div>
             <div id="key">Work Email</div>
