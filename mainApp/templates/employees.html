@@ -19,8 +19,8 @@
     <div class="employees">
         {% for person in all_users %}
         {% if person.EMPLOYEE %}
-        <a href="dashboard"><div class="ep_row">
-            <div class="img"><img src="{{url_for('static', filename='profiles/'+user.img)}}" alt="img"></div>
+        <a href="dashboard/{{person.id}}"><div class="ep_row">
+            <div class="img"><img src="{{url_for('static', filename='profiles/'+person.img)}}" alt="img"></div>
             <div class="desc">
                 <div class="para">
                     <h1>{{person.lastName +" "+ person.firstName}}</h1>

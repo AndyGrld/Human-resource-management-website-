@@ -1,11 +1,13 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask import Flask
+from flask_caching import Cache
 from os import path
 
 
 db = SQLAlchemy()
 DB_NAME = 'database.db'
+cache = Cache(config={'CACHE_TYPE': 'simple'})
 
 
 def create_app():
@@ -31,6 +33,8 @@ def create_app():
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
+
+    cache.init_app(app)
 
     return app
 

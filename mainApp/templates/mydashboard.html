@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Your name{% endblock %}
+{% block title %}{{user.lastName|title + " "  + user.firstName|title}}{% endblock %}
 {% block body %}
     {% include 'navbar.html' %}
     <div class="header">
@@ -21,7 +21,7 @@
         <h1>Personal Details</h1>
         <div class="tabular">
             <div id="key">Name</div>
-            <div id="value">{{user.lastName + " " + user.firstName}}</div>
+            <div id="value">{{user.lastName|title + " " + user.firstName|title}}</div>
             <div id="key">Personal Email</div>
             <div id="value">{{user.email}}</div>
             <div id="key">Date of birth</div>
@@ -32,21 +32,31 @@
         <h1>Job and salary</h1>
         <div class="tabular">
             <div id="key">Job Title</div>
-            <div id="value">{{job.name}}</div>
+            <div id="value">{{job.name|title}}</div>
             <div id="key">Manager</div>
             <div id="value">
                 {% if employee.isManager %}
-                <a href="mydashboard">{{user.lastName + " "  + user.firstName}}</a>
+                <a href="mydashboard">
+                    {{user.lastName|title + " "  + user.firstName|title}}
+                </a>
                 {% else %}
-                <a href="mydashboard">{{project.manager}}</a>
+                {% for  manager in managers %}
+                <a href="{{ url_for('views.dashboard', id=manager.user.id) }}">
+                    {{ manager.user.lastName|title + " "  + manager.user.firstName|title }}
+                </a>
+                {% endfor %}
                 {% endif %}
             </div>
             <div id="key">Manages</div>
             <div id="value">
                 {% if not employee.isManager %}
-                <a href="mydashboard">None</a>
+                None
                 {% else %}
-                <a href="mydashboard">{{project.manager}}</a>
+                {% for managed_employee in managed_employees %}
+                    <a href="dashboard/{{managed_employee.user.id}}">
+                        {{ managed_employee.user.lastName|title + " "  + managed_employee.user.firstName|title }}
+                    </a>
+                {% endfor %}
                 {% endif %}
             </div>
             <div id="key">Work Email</div>
@@ -63,9 +73,9 @@
         <h1>Performance and skills</h1>
         <div class="tabular">
             <div id="key">Performance</div>
-            <div id="value">{{employee.performance}}</div>
+            <div id="value">{{employee.performance|title}}</div>
             <div id="key">Skills</div>
-            <div id="value">{{employee.skills}}</div>
+            <div id="value">{{employee.skills|title}}</div>
         </div>
     </div>
     <div class="details" id="project_details">
@@ -74,13 +84,21 @@
             <div id="key">Projects worked on</div>
             <div id="value">
                 {% for Project in project %}
-                    {{Project.name}}
+                    {% if Project.isCompleted %}
+                        {{Project.name|title}}
+                    {% else %}
+                        None
+                    {% endif %}
                 {% endfor %}
             </div>
             <div id="key">Projects working on</div>
             <div id="value">
                 {% for Project in project %}
-                    {{Project.name}}
+                    {% if not Project.isCompleted %}
+                        {{Project.name|title}}
+                    {% else %}
+                        None
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>

@@ -19,6 +19,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150), nullable=False)
     is_superuser = db.Column(db.Boolean, default=False)
     is_admin = db.Column(db.Boolean, default=False)
+    isSubscribed = db.Column(db.Boolean, default=False)
     EMPLOYEE = db.relationship('Employee', cascade='all,delete-orphan')
     APPLICANT = db.relationship('Applicant', cascade='all,delete-orphan')
 
@@ -33,15 +34,16 @@ class Employee(db.Model):
     performance = db.Column(db.String(100), default="Not assessed")
     work_email = db.Column(db.String(50))
     isManager = db.Column(db.Boolean, default=False)
+    manager_id = db.Column(db.Integer, db.ForeignKey('employee.id'))
     PROJECT = db.relationship('Projects', secondary=employee_project, backref='em_projects')
+    employees = db.relationship('Employee', backref=db.backref('manager', remote_side=[id]))
+    user = db.relationship('User', backref=db.backref('employee', uselist=False))
 
 
 class Projects(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String(50), nullable=False)
     project_description = db.Column(db.String(300), default='No description')
-    contributors = db.Column(db.String(300), default='No contributors')
-    manager = db.Column(db.String(200), default='No manager')
     date_commenced = db.Column(db.Date)
     isCompleted = db.Column(db.Boolean, default=False)
     date_completed = db.Column(db.Date, default=None)
@@ -52,7 +54,6 @@ class Job(db.Model):
     name = db.Column(db.String(50), nullable=False)
     isAvailable = db.Column(db.Boolean, default=True)
     job_description = db.Column(db.String(300), default='No information')
-    manager = db.Column(db.String(200), default='C.E.O')
     salary = db.Column(db.Integer)
     skills = db.Column(db.String(100))
     startApply = db.Column(db.Date, default=datetime.date.today())
@@ -64,8 +65,7 @@ class Job(db.Model):
 
 class Applicant(db.Model):
     id = db.Column(db.Integer, primary_key=True, nullable=False)
-    applicant_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    applicant_job_id = db.Column(db.Integer, db.ForeignKey('job.id'))
-    isSubscribed = db.Column(db.Boolean, default=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    job_id = db.Column(db.Integer, db.ForeignKey('job.id'))
     date_submitted = db.Column(db.Date, default=datetime.date.today())
     resume = db.Column(db.String(100), default=None)

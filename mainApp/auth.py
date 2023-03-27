@@ -8,7 +8,7 @@ from mainApp.models import User
 import mediapipe as mp
 import uuid as uuid
 import cv2 as cv
-from . import db
+from . import db, cache
 import smtplib
 import os
 
@@ -42,6 +42,7 @@ def send_mail(C_user):
 
 
 @auth.route('/login', methods=['GET', 'POST'])
+@cache.cached(timeout=1800)
 def login():
     if request.method == 'POST':
         email = request.form.get('email')
@@ -70,11 +71,13 @@ def logout():
 
 @auth.route('/admin')
 @login_required
+@cache.cached(timeout=1800)
 def admin():
     return render_template('admin.html', now=current_user, users=User.query.all())
 
 
 @auth.route('/signup', methods=['GET', 'POST'])
+@cache.cached(timeout=1800)
 def sign_up():
     if request.method == 'POST':
         firstName = request.form.get('fname')
