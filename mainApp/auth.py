@@ -42,7 +42,7 @@ def send_mail(C_user):
 
 
 @auth.route('/login', methods=['GET', 'POST'])
-@cache.cached(timeout=1800)
+@cache.cached(timeout=60)
 def login():
     if request.method == 'POST':
         email = request.form.get('email')
@@ -71,13 +71,13 @@ def logout():
 
 @auth.route('/admin')
 @login_required
-@cache.cached(timeout=1800)
+@cache.cached(timeout=60)
 def admin():
     return render_template('admin.html', now=current_user, users=User.query.all())
 
 
 @auth.route('/signup', methods=['GET', 'POST'])
-@cache.cached(timeout=1800)
+@cache.cached(timeout=60)
 def sign_up():
     if request.method == 'POST':
         firstName = request.form.get('fname')

@@ -47,19 +47,19 @@ def send_mail(name, user_email, tel, subject, body):
 
 
 @views.route('/')
-@cache.cached(timeout=1800)
+@cache.cached(timeout=60)
 def home():
     return render_template('index.html', user=current_user)
 
 
 @views.route('/about')
-@cache.cached(timeout=1800)
+@cache.cached(timeout=60)
 def about():
     return render_template('about.html', user=current_user)
 
 
 @views.route('/contactus', methods=['GET', 'POST'])
-@cache.cached(timeout=1800)
+@cache.cached(timeout=60)
 def contactUs():
     if request.method == 'POST':
         name = request.form.get('name')
@@ -73,7 +73,7 @@ def contactUs():
 
 @login_required
 @views.route('/mydashboard')
-@cache.cached(timeout=1800)
+@cache.cached(timeout=60)
 def mydashboard():
     employee = Employee.query.filter_by(user_id=current_user.id).first()
     job = Job.query.filter_by(id=employee.job_id).first()
@@ -85,7 +85,7 @@ def mydashboard():
 
 
 @views.route('/dashboard/<int:id>')
-@cache.memoize(timeout=1800)
+@cache.memoize(timeout=60)
 def dashboard(id):
     print(id)
     print(current_user.id)
@@ -103,7 +103,7 @@ def dashboard(id):
 
 @login_required
 @views.route('/employees')
-@cache.cached(timeout=1800)
+@cache.cached(timeout=60)
 def employees():
     return render_template('employees.html', user=current_user, all_users=User.query.all(),
                            employees=Employee)
@@ -111,7 +111,7 @@ def employees():
 
 @login_required
 @views.route('/job')
-@cache.cached(timeout=1800)
+@cache.cached(timeout=60)
 def job():
     return render_template('job.html', user=current_user)
 
