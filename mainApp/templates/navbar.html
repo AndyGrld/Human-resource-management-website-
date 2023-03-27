@@ -3,24 +3,24 @@
         <ul>
             <li><a href="/">Home</a></li>
             {% if user.EMPLOYEE %}
-            <li><a href="mydashboard">Dashboard</a></li>
-            <li><a href="employees">Employees</a></li>
+            <li><a href="{{ url_for('views.mydashboard') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('views.employees') }}">Employees</a></li>
             {% endif %}
             {% if user.is_admin %}
-            <li><a href="mydashboard">Dashboard</a></li>
-            <li><a href="employees">Employees</a></li>
+            <li><a href="{{ url_for('views.mydashboard') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('views.employees') }}">Employees</a></li>
             {% endif %}
             {% if not user.EMPLOYEE %}
-            <li><a href="jobs">Jobs</a></li>
+            <li><a href="{{ url_for('views.jobs') }}">Jobs</a></li>
             {% endif %}
-            <li><a href="about">About Us</a></li>
+            <li><a href="{{ url_for('views.about') }}">About Us</a></li>
         </ul>
         <ul class="prof">
             {% if user.is_authenticated %}
-            <li><a href="logout">Logout</a></li>
+            <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
             {% else %}
-            <li><a href="signup">SignUp</a></li>
+            <li><a href="{{ url_for('auth.signup') }}">SignUp</a></li>
             {% endif %}
-            <li><a href="contactus">Contact Us</a></li>
+            <li><a href="{{ url_for('views.contactUs') }}">Contact Us</a></li>
         </ul>
     </div>
