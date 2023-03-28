@@ -2,14 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../static/auth.css">
+    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="stylesheet" href="../static/auth.css"
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
-    <div class="forms">
-        <div class="grid1">
+    <div class="navbar">
+        <ul>
+            <li id="logo"></li>
+            <li id="menu"><a href="#">Membership</a></li>
+            <li id="menu"><a href="#">Community</a></li>
+            <li id="menu"><a href="#">Help</a></li>
+            <li id="menu"><a href="#">About</a></li>
+        </ul>
+    </div>
+    <div class="form">
+        <div class="container">
             <form action="index.html">
                 <h1>Login into account</h1>
                 <input type="email" name="email" id="email" placeholder="Enter your email">
@@ -17,8 +27,6 @@
                 <button type="submit">Login into account</button>
             <h3>Not a member?<a href="signup.html">Signup in here</a></h3>
             </form>
-        </div>
-        <div class="grid2">
         </div>
     </div>
 </body>

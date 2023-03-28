@@ -1,53 +1,35 @@
-*{
-    padding:0;
-    margin: 0;
-}
-a{
-    text-decoration: none;
-    color:blue;
-}
-body{
-    background-color: rgb(19, 19, 19);
-}
-.forms{
-    display:grid;
-    grid-template-columns: repeat(2, 1fr);
-    color:white;
-}
-.forms .grid1{
-    width: 100%;
-    display: grid;
-    padding: 20px;
-    grid-template-columns: 1fr;
-    align-items: center;
-    justify-items: center;
-
-}
-.forms input{
-    background-color: rgb(43, 43, 43);
-    padding: 10px;
-    margin-top: 10px;
-    width: 80%;
-    border: none;
-    color: white;
-    border-radius: 10px;
-}
-.forms button{
-    width: 84%;
-    margin-top: 10px;
-    background-color: blue;
-    padding:10px;
-    border:none;
-    border-radius: 10px;
-}
-.grid1 h3{
+form {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 400px;
+    margin: 0 auto 100px;
+    padding: 45px;
     text-align: center;
-    margin: 10px;
-}
-.forms .grid2{
-    background: linear-gradient(90deg,rgba(17, 17, 17, 0.788), 80%,transparent),url('img/face1.jfif');
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  }
+  form input,select {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
     width: 100%;
-    height: 100vh;
-    background-position: center;
-    background-size: cover;
-}
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+  }
+  form button {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background:yellow;
+    width: 100%;
+    border: 0;
+    padding: 15px;
+    color: black;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+  }

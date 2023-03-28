@@ -1,230 +1,137 @@
-*{
-    padding:0;
-    margin: 0;
+*
+{
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 15px;
+    margin: 0px;
 }
-a{
-    color:blue;
-    text-decoration: none;
+a
+{
+    text-decoration: none; 
+    color: black;
 }
-body{
-    background-color: rgb(19, 19, 19);
-    color:white;
+a:hover
+{
+    pointer-events: all;
+    color: rgb(72, 179, 116);
+}
+ul{
+    list-style: none;
 }
 
-
-/* navbar */
-.nav{
+.navbar
+{
+    display: block;
+    width: 100%;
+    height: 70px;
+    background-color:beige;
+    align-items: center;
+}
+.navbar ul
+{
     display: flex;
-    margin-bottom: 15px;
-    padding: 15px;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 20px;
-}
-.nav a{
-    color:white;
-}
-.nav a:hover{
-    color:blue;
-}
-.nav ul li{
-    display: inline;
-}
-.nav #logo{
-    width: 80px;
-    height: 50px;
-}
-.nav .prof{
-    display: flex;
-    align-items: center;
-}
-.nav ul li{
-    padding: 8px;
-}
-
-
-
-/* index */
-.hero{
-    height: 90vh;
-    background: linear-gradient(rgba(17, 17, 17, 0.788),rgba(17, 17, 17, 0.788)),url('img/face1.jfif');
-    background-size: cover;
-    background-position: center;
-    display: grid;
-    justify-items: center;
-    align-items: center;
-}
-.center{
-    text-align: center;
-}
-.hero .center h1{
-    font-size:60px;
-}
-.hero .center h2{
-    font-size: 30px;
-}
-.hero .center h3{
-    font-size: 30px;
-    font-weight: lighter;
-}
-.hero .center a{
-    text-align: center;
-    padding: 10px;
-    color:white;
-    position: relative;
-    top: 3px;
-    border-radius: 5px;
-    border: 1px blue solid;
-    transition: .3s;
-}
-.hero .center a:hover{
-    border: 1px white solid;
-    background-color: blue;
-}
-
-
-
-/* employees */
-.employees{
-    display: grid;
-    margin-bottom: 15px;
-    justify-content: center;
-    align-items: center;
-    margin: 10px 0;
-}
-.ep_row{
-    max-width: 1200px;
-    display: flex;
+    list-style: none;
     padding: 20px;
-    margin: 15px 0;
-    background-color: black;
-    border: 1px solid blue;
-    box-shadow: 0 0 5px blue;
-    border-radius: 15px;
 }
-.employees a{
-    color:white;
-}
-.ep_row img{
+#logo
+{
+    
     width: 200px;
     height: 200px;
-    border-radius: 50%;
 }
-.ep_row .desc{
-    padding-left: 30px;
+#logo
+{
+    width: 40px;
+    height: 40px;
+    background:url(../static/img/facebook.jpg);
+    float: right;
+    overflow: hidden;
+    background-size:cover;
+    background-repeat: no-repeat;
 }
-.ep_row .desc p{
-    margin: 10px 0;
-}
-.ep_row .desc h1{
-    margin: 5px 0;
-}
-
-
-
-/* dashboard */
-.header{
-    display:flex;
-    padding: 15px;
-    color:white;
-    margin-bottom: 15px;
-    align-items: center;
-}
-.header img{
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
-}
-.header2{
-    padding-left: 20px;
-}
-.header #name{
-    margin-bottom: 10px;
-    margin-left: 10px;
-}
-.header2 ul li{
-    display:inline;
-    padding:10px;
-}
-.header2 li a{
-    color:rgb(129, 129, 129);
-}
-.details{
-    margin-bottom: 15px;
-    padding: 15px;
-}
-.details h1{
-    margin-bottom: 15px;
-}
-.tabular{
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-}
-.tabular #key, .tabular #value{
-    padding: 5px;
+#menu
+{
+    padding: 10px;
+    position: relative;
+    left: 450px;
     font-size: 18px;
 }
-.tabular #key{
-    justify-self: end;
-    color:rgb(131, 131, 131);
-}
-
-
-
-/* contact us */
-.contact_header{
-    display: flex;
-    justify-content: space-around;
-}
-.contact_header h1{
-    font-size: 50px;
-    font-weight: lighter;
-    border-bottom: 2px blue solid;
-}
-.grid_mail{
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    padding: 30px;
-}
-.side_items{
+#login
+{
+    background-color: yellow;
+    position: relative;
+    left: 950px;
+    width: 80px;
+    padding: 10px;
     display: flex;
     align-items: center;
-    margin: 15px 0;
+    justify-content: center;
+    border-radius: 20px;
 }
-.side_items img{
-    width: 50px;
-    height: 50px;
+.center
+{
+    height: 800px;
+    background-color: rgb(230, 226, 220);
+}
+.flex-box
+{
+    width: 750px;
+    height: 780px;
+    float: right;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: center;
+    margin-top: 5px;
+}
+#box1,#box2,#box3,#box4
+{
+    background:url(../static/img/face1.jfif);
+    background-size:cover;
+}
+.info
+{
+    float: left;
+    position: relative;
+    top: 200px;
+}
+.email
+{
+    margin: 3y0px;
+}
+.box
+{
+    width:375px;
+    height: 390px;
+    background-color: red;
+}
+.content
+{
+    width: 500px;
+    font-size: 70px;
+}
+.bottom
+{
+    font-size: 30px;
+}
+.footer
+{
+    height: 100px;
+    background-color: rgb(4, 4, 28);
+    display: flex;
+    flex-direction: row;
+}
+.custom-box
+{
+    width: 950px;
+    margin:40px 30px 20px 20px;
+    color: beige;
+}
+.custom-box ul
+{
+    display: flex;
     margin: 10px;
-    padding: 0 10px;
-    border-right: 1px blue solid;
 }
-.grid_mail form{
-    display: grid;
-    margin: 20px 0;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(6, 1fr);
-}
-.grid_mail form input{
-    background-color: rgb(43, 43, 43);
-    padding: 5px;
-    border: none;
-    border-radius: 10px;
-    color: white;
-    margin: 10px 20px;
-}
-.grid_mail form #message{
-    grid-column: 1/3;
-    grid-row: 3/6;
-    margin: 10px 20px;
-    border: none;
-    border-radius: 10px;
-    color: white;
-    background-color: rgb(43, 43, 43);
-    height: 200px;
-}
-.grid_mail form input[type='submit']{
-    grid-column: 1/3;
-    background-color: blue;
-    border:none;
-    border-radius: 10px;
+.custom-box li
+{
+    margin: 10px;
 }
