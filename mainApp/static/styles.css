@@ -17,6 +17,10 @@ a:hover
 ul{
     list-style: none;
 }
+input[type=number]::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+}
+
 
 .navbar
 {
