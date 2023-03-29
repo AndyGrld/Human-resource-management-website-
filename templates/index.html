@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../mainApp/static/styles.css">
+    <script defer src="script.js"></script>
     <title>Dashboard</title>
 </head>
 <body>
@@ -15,7 +16,7 @@
             <li id="menu"><a href="#">Community</a></li>
             <li id="menu"><a href="#">Help</a></li>
             <li id="menu"><a href="#">About</a></li>
-            <li id="login"><a href="../templates/">Login</a></li>
+            <li id="login"> <button data-modal-target="#modal">Login</button></li>
         </ul>
     </div>
     
@@ -37,6 +38,24 @@
             <div class="box" id="box4"></div>
         </div>
     </div>
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <div class="title">Login</div>
+        <button data-close-button class="close-button">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form class="form">
+            <input type="email" placeholder="Email">
+            <input type="password" placeholder="Password">
+            <button type="submit">Submit</button>
+            <p id="register">First time, <a href="./sign-up.html">Register here</a></p>
+        </form>
+      </div>
+    </div>
+    <div id="overlay"></div>
+
+
+
     <div class="footer">
         <div class="custom-box">
            High quality workforce to handle all tasks
@@ -55,5 +74,6 @@
             </ul>
         </div>
     </div>
+<script src="./script.js"></script>
 </body>
 </html>
