@@ -35,7 +35,7 @@
             <div id="value">{{job.name|title}}</div>
             <div id="key">Manager</div>
             <div id="value">
-                {% if employee.isManager %}
+                {% if user.isManager %}
                 <a href="mydashboard">
                     {{other.lastName|title + " "  + other.firstName|title}}
                 </a>
@@ -53,7 +53,7 @@
                 None
                 {% else %}
                 {% for managed_employee in managed_employees %}
-                    <a href="dashboard/{{managed_employee.user.id}}">
+                    <a href="{{ url_for('views.dashboard', id=managed_employee.user.id)}}">
                         {{ managed_employee.user.lastName|title + " "  + managed_employee.user.firstName|title }}
                     </a>
                 {% endfor %}

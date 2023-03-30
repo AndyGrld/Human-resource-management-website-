@@ -5,10 +5,10 @@ from email.mime.multipart import MIMEMultipart
 from werkzeug.utils import secure_filename
 from email.mime.text import MIMEText
 from mainApp.models import User
+from . import db, cache
 import mediapipe as mp
 import uuid as uuid
 import cv2 as cv
-from . import db, cache
 import smtplib
 import os
 
@@ -42,7 +42,7 @@ def send_mail(C_user):
 
 
 @auth.route('/login', methods=['GET', 'POST'])
-@cache.cached(timeout=60)
+# @cache.cached(timeout=60)
 def login():
     if request.method == 'POST':
         email = request.form.get('email')
@@ -71,13 +71,15 @@ def logout():
 
 @auth.route('/admin')
 @login_required
-@cache.cached(timeout=60)
+# @cache.cached(timeout=60)
 def admin():
+    if not current_user.is_admin:
+        return redirect(url_for('auth.login'))
     return render_template('admin.html', now=current_user, users=User.query.all())
 
 
 @auth.route('/signup', methods=['GET', 'POST'])
-@cache.cached(timeout=60)
+# @cache.cached(timeout=60)
 def sign_up():
     if request.method == 'POST':
         firstName = request.form.get('fname')

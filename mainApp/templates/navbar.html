@@ -1,10 +1,25 @@
-<div class="navbar">
+<div class="nav">
+    <img src="../static/img/home.png" alt="logo" id="logo">
     <ul>
-        <li id="logo"></li>
-        <li id="menu"><a href="#">Membership</a></li>
-        <li id="menu"><a href="#">Community</a></li>
-        <li id="menu"><a href="#">Help</a></li>
-        <li id="menu"><a href="{{ url_for('views.about') }}">About</a></li>
-        <li id="login"><button data-modal-target="#modal">Login</button></li>
+        <li><a href="/">Home</a></li>
+        {% if user.is_authenticated %}
+        {% if user.EMPLOYEE or user.is_admin %}
+        <li><a href="{{ url_for('views.employees')}}">Employees</a></li>
+        <li><a href="{{ url_for('views.mydashboard')}}">Dashboard</a></li>
+        {% endif %}
+        {% endif %}
+        <li><a href="{{ url_for('views.jobs')}}">Jobs</a></li>
+        <li><a href="{{ url_for('views.about')}}">About Us</a></li>
+    </ul>
+    <ul class="prof">
+        {% if user.is_authenticated %}
+        {% if user.is_admin %}
+        <li><a href="{{ url_for('auth.admin')}}">Admin</a></li>
+        {% endif %}
+        <li><a href="{{ url_for('auth.logout')}}">Logout</a></li>
+        {% else %}
+        <li><a href="{{ url_for('auth.signup')}}">SignUp</a></li>
+        {% endif %}
+        <li><a href="{{ url_for('views.contactUs')}}">Contact Us</a></li>
     </ul>
 </div>
