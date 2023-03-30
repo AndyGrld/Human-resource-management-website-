@@ -1,21 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../mainApp/static/auth.css">
-    <title>Document</title>
-</head>
-<body>
-    <form>
-        <span>
+{% extends 'base.html' %}
+{% block title %}Signup{% endblock %}
+{% block body %}
+    <form method="POST" enctype="multipart/form-data">
         <h2>Sign Up</h2>
-        <input id="name" type="text" name="name" placeholder="First Name">
-        <input id="email" type="email" name="email" placeholder="Second Name">
-        <input id="password" type="password" name="password" Password>
-        <button id="login">Login</button>
-  </form>
-</body>
-</html>
-<body>
+        <input type="text" name="fname" id="fname" placeholder="Enter your first name">
+        <input type="text" name="mname" id="mname" placeholder="Enter your middle name">
+        <input type="text" name="lname" id="lname" placeholder="Enter your last name">
+        <input type="email" name="email" id="email" placeholder="Enter your email">
+        <input type="number" name="phone" pattern="[0-9]{10}" id="phone" placeholder="Enter your phone number">
+        <input type="file" name="pic">
+        <input type="date" name="dob" id="dob">
+        <input type="password" name="pass1" id="pass1" placeholder="Enter a password">
+        <input type="password" name="pass2" id="pass2" placeholder="Confirm your password">
+        <button type="submit">Create an account</button>
+        <h3>Already a member?<a href="login">Login in here</a></h3>
+    </form>
+{% endblock %}

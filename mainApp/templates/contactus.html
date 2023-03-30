@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Contact Us{% endblock %}
+{% block body %}
+    {% include 'navbar.html' %}
+    <div class="contact_header"><h1>Mail Us</h1></div>
+
+    <div class="grid_mail">
+        <div class="side">
+            <div class="side_items">
+                <img src="{{ url_for('static', filename='img/face1.jfif')}}" alt="">
+                <div>
+                    <b>ADDRESS</b>
+                    <p>Tarkwa, Western</p>
+                </div>
+            </div>
+            <div class="side_items">
+                <img src="{{ url_for('static', filename='img/face1.jfif')}}" alt="">
+                <div>
+                    <b>EMAIL</b>
+                    <p>umat@gmail.edu.gh</p>
+                </div>
+            </div>
+            <div class="side_items">
+                <img src="{{ url_for('static', filename='img/face1.jfif')}}" alt="">
+                <div>
+                    <b>CALL US ON</b>
+                    <p>+233 123 1234 123</p>
+                </div>
+            </div>
+        </div>
+        <form method="POST">
+            <input type="text" id="name" name="name" placeholder="Name">
+            <input type="number" pattern="[0-9]{10}" id="tel" name="tel" placeholder="Telephone">
+            <input type="email" id="email" name="email" placeholder="Email">
+            <input type="text" name="subject" id="subject" placeholder="Subject">
+            <textarea name="message" id="message" cols="30" rows="10"></textarea>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+{% endblock %}

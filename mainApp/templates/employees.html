@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Employees{% endblock %}
+    {% block style %}
+    <style>
+        .hero{
+            height:30vh;
+            background:linear-gradient(rgba(0, 0, 0, 0.692),rgba(0, 0, 0, 0.692)),url('../static/img/faces1.jfif');
+            background-size: contain;
+            background-position: center;
+        }
+    </style>
+    {% endblock %}
+{% block body %}
+    {% include 'navbar.html' %}
+
+    <div class="hero">
+        <h1>Co-workers and staff</h1>
+    </div>
+    <div class="employees">
+        {% for person in all_users %}
+        {% if person.EMPLOYEE %}
+        <a href="dashboard/{{person.id}}"><div class="ep_row">
+            <div class="img"><img src="{{url_for('static', filename='profiles/'+person.img)}}" alt="img"></div>
+            <div class="desc">
+                <div class="para">
+                    <h1>{{person.lastName +" "+ person.firstName}}</h1>
+                    <p>{{employees.query.filter_by(user_id=person.id).about}}</p>
+                </div>
+                <div class="skills"><p>Skills: {{employees.query.filter_by(user_id=person.id).first().skills}}</p></div>
+                <div class="date"><p>Joined on: {{employees.query.filter_by(user_id=person.id).first().date_employed}}</p></div>
+            </div>
+        </div></a>
+        {% endif %}
+        {% endfor %}
+
+    </div>
+{% endblock %}

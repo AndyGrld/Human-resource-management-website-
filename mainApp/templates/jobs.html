@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Job list{% endblock %}
+    {% block style %}
+    <style>
+        .hero{
+            height:30vh;
+            background:linear-gradient(rgba(0, 0, 0, 0.692),rgba(0, 0, 0, 0.692)),url('../static/img/faces1.jfif');
+            background-size: contain;
+            background-position: center;
+        }
+    </style>
+    {% endblock %}
+{% block body %}
+    {% include 'navbar.html' %}
+    <div class="hero">
+        <h1>Work with Us</h1>
+    </div>
+
+          {% for job in jobs %}
+          {% if job.isAvailable %}
+    <div class="employees">
+          <a href="job">
+            <div class="ep_row">
+            <div class="desc">
+            <div class="para">
+                    <h1>{{job.name}}</h1>
+                    <p>{{job.job_description}}</p>
+                </div>
+                <div class="skills"><p>Skills: {{job.skills}}</p></div>
+                <div class="date"><p>Application Started: {{job.startApply}}</p></div>
+                <div class="date"><p>Application Ends: {{job.endApply}}</p></div>
+            </div>
+          </div>
+        </a>
+    </div>
+          {% endif %}
+          {% endfor %}
+{% endblock %}
