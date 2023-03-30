@@ -2,4 +2,97 @@
 {% block title %}About Us{% endblock %}
 {% block body %}
     {% include 'navbar.html' %}
+    <div class="head1">
+        <div class="text1">
+            <h2>We build your dream together</h2>
+            <p>
+                Looking for your dream job? Look no further
+                than UMaT. Our mission is to help
+                job seekers like you achieve their career goals.
+                With our expert guidance and personalized approach,
+                we'll help you navigate the job search process and
+                land the job you've always wanted. Join us and let's
+                make your dream job a reality.
+            </p>
+            <a href="{{ url_for('views.contactUs') }}"><button>Contact Us</button></a>
+        </div>
+    </div>
+    <div class="body1">
+        <div class="left_grid">
+            <h3>Welcome to <br><span>UMaT</span></h3>
+            <p>The leading University in West Africa</p>
+        </div>
+        <div class="right_grid">
+            <p>
+                Join our team at the University of Mines and Technology
+                and be part of a company that is dedicated to helping
+                people achieve their career goals. We are committed to
+                creating a supportive and inclusive work environment that
+                encourages growth and creativity.<br><br> At UMaT,
+                you'll have the opportunity to work with a team of talented
+                professionals who are passionate about making a positive
+                impact on people's lives. <br><br>We offer competitive salaries,
+                flexible work arrangements, and opportunities for professional
+                development. If you're looking for a challenging and rewarding
+                career, UMaT is the place for you. Apply now and take
+                the first step towards achieving your own career goals while
+                helping others achieve theirs.
+            </p>
+        </div>
+    </div>
+    <div class="body2">
+            <h3>Meet our founders</h3>
+            <div class="f_grid">
+                <div class="card1">
+                    <p>
+                        Meet the founder of UMaT through his passion for
+                        technology and entrepreneurship. He created a culture of
+                        innovation and collaboration, making the UmaT a major player
+                        in the tech industry. His story is a testament to the power of
+                        hard work and leadership in building a successful
+                        company from the ground up.
+                        <br>
+                        <img src="{{ url_for('static', filename='profiles/face5.jfif') }}" alt="profile image">
+                    </p>
+                    <h4>C.E.O</h4>
+                </div>
+                <div class="card1">
+                    <p>
+                        Meet the founder of UMaT through his passion for
+                        technology and entrepreneurship. He created a culture of
+                        innovation and collaboration, making the UmaT a major player
+                        in the tech industry. His story is a testament to the power of
+                        hard work and leadership in building a successful
+                        company from the ground up.
+                        <br>
+                        <img src="{{ url_for('static', filename='profiles/face1.jfif') }}" alt="profile image">
+                    </p>
+                    <h4>C.E.O</h4>
+                </div>
+                <div class="card1">
+                    <p>
+                        Meet the founder of UMaT through his passion for
+                        technology and entrepreneurship. He created a culture of
+                        innovation and collaboration, making the UmaT a major player
+                        in the tech industry. His story is a testament to the power of
+                        hard work and leadership in building a successful
+                        company from the ground up.
+                        <br>
+                        <img src="{{ url_for('static', filename='profiles/face8.jfif') }}" alt="profile image">
+                    </p>
+                    <h4>C.E.O</h4>
+                </div>
+            </div>
+        </div>
+            <footer>
+                <div>UMaT@gmail.com</div>
+                <div class="social_icons">
+                    <a href="#"><img src="{{ url_for('static', filename='social/facebook.png') }}"></a>
+                    <a href="#"><img src="{{ url_for('static', filename='social/linkedin.png') }}"></a>
+                    <a href="#"><img src="{{ url_for('static', filename='social/whatsapp.png') }}"></a>
+                </div>
+                <div>
+                    <a href="{{url_for('views.contactUs')}}"><img src="{{ url_for('static', filename='social/call.png') }}"></a>
+                </div>
+            </footer>
 {% endblock %}
