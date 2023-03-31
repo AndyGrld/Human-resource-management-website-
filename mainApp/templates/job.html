@@ -2,4 +2,63 @@
 {% block title %}JobName{% endblock %}
 {% block body %}
     {% include 'navbar.html' %}
+    <div class="header">
+        <div class="header2">
+            <div id="name">
+                <h1>{{job.name|title}}</h1>
+            </div>
+            <ul id="list">
+                <li><a href="#job_details">Job and salary</a></li>
+                <li><a href="#more_details">Job Description</a></li>
+                <li><a href="#application_process">Appication</a></li>
+                <li><a href="#apply_forms">Forms</a></li>
+            </ul>
+            <br><hr>
+        </div>
+    </div>
+<div class="part-form">
+    <div class="part-form1">
+    <div class="details" id="job_details">
+        <h1>Salary</h1>
+        <div class="tabular">
+            <div id="key">Job Title</div>
+            <div id="value">{{job.name|title}}</div>
+            <div id="key">Job type</div>
+            <div id="value">{{job.type}}</div>
+            <div id="key">Wage</div>
+            <div id="value">Ghc {{job.salary}} per month</div>
+        </div>
+    </div>
+    <div class="details" id="more_details">
+        <h1>Job Description</h1>
+        <div class="tabular">
+            <div id="key">Description</div>
+            <div id="value">{{job.job_description}}</div>
+            <div id="key">Skills Needed</div>
+            <div id="value">{{job.skills|title}}</div>
+        </div>
+    </div>
+    <div class="details" id="application_process">
+        <h1>Appication</h1>
+        <div class="tabular">
+            <div id="key">Application started on</div>
+            <div id="value">{{job.startApply}}</div>
+            <div id="key">Application ends on</div>
+            <div id="value">{{job.endApply}}</div>
+        </div>
+    </div>
+        </div>
+    <div class="part-form2">
+        <div id="apply_forms">
+            <h1>Apply Now</h1>
+            <form method="POST" enctype="multipart/form-data">
+                <input type="email" name="email" id="email" placeholder="Enter your email">
+                <input type="password" name="pass1" id="pass1" placeholder="Enter your password">
+                 <input type="file" id="resume" name="resume" accept=".pdf,.doc,.docx">
+                 <input type="file" id="cover_file" name="cover_file" accept=".pdf,.doc,.docx">
+                <button type="submit">Quick Apply</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

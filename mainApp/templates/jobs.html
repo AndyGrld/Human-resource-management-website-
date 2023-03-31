@@ -19,7 +19,7 @@
           {% for job in jobs %}
           {% if job.isAvailable %}
     <div class="employees">
-          <a href="job">
+          <a href="{{ url_for('views.job', id=job.id)}}">
             <div class="ep_row">
             <div class="desc">
             <div class="para">

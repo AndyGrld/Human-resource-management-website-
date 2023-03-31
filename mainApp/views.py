@@ -1,13 +1,19 @@
 import smtplib
+import os
+from werkzeug.utils import secure_filename
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import current_user, login_required
-from .models import Job, Employee, User, Projects
+from .models import Job, Employee, User, Projects, Applicant
 from mainApp.auth import me, epassword
-from . import cache
+from . import db, cache
 
 views = Blueprint('views', __name__)
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'pdf', 'doc', 'docx'}
 
 
 def get_managed_employees(employee_id):
@@ -110,13 +116,49 @@ def employees():
 
 
 @login_required
-@views.route('/job')
+@views.route('/job/<int:id>', methods = ['GET', 'POST'])
 # @cache.cached(timeout=60)
-def job():
-    return render_template('job.html', user=current_user)
+def job(id):
+    job = Job.query.filter_by(id=id).first()
+    if request.method == 'POST':
+        if not current_user.is_authenticated:
+            flash('Please login to apply for a job', category='error')
+            return redirect(url_for('auth.login'))
+        resume_file = request.files['resume']
+        cover_file = request.files['cover_file']
+        if resume_file and allowed_file(resume_file.filename) and cover_file and allowed_file(cover_file.filename):
+            # save uploaded files with unique filenames
+            resume_filename = secure_filename(resume_file.filename)
+            cover_filename = secure_filename(cover_file.filename)
+            resume_file.save(os.path.join("mainApp/static/files/resume", resume_filename))
+            cover_file.save(os.path.join("mainApp/static/files/cover_file", cover_filename))
+            # create new applicant record in database
+            new_applicant = Applicant(user_id=current_user.id, job_id=id, resume=resume_filename, cover_file=cover_filename)
+            db.session.add(new_applicant)
+            db.session.commit()
+            flash('Your application has been sent successfully', category='success')
+            return redirect(url_for('views.job', id=id))
+        else:
+            flash('Please upload PDF or Word files only.', category='error')
+    return render_template('job.html', user=current_user, job=job)
 
 
 @views.route('/jobs')
 # @cache.cached(timeout=1800)
 def jobs():
     return render_template('jobs.html', user=current_user, jobs=Job.query.all())
+
+
+@views.route('/subscribe')
+# @cache.cached(timeout=1800)
+def subscribe():
+    if current_user.isSubscribed:
+        current_user.isSubscribed = False
+        db.session.commit()
+        flash("Unsubscribed", category='error')
+        return redirect(url_for("views.home"))
+    else:
+        current_user.isSubscribed = True
+        db.session.commit()
+        flash("Subscription successful", category='success')
+        return redirect(url_for("views.home"))

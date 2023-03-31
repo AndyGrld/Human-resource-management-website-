@@ -9,6 +9,13 @@
         {% endif %}
         {% endif %}
         <li><a href="{{ url_for('views.jobs')}}">Jobs</a></li>
+        {% if user.is_authenticated %}
+        {% if user.isSubscribed %}
+        <li><a href="{{ url_for('views.subscribe')}}">Unsubscribe</a></li>
+        {% else %}
+        <li><a href="{{ url_for('views.subscribe')}}">Subscribe</a></li>
+        {% endif %}
+        {% endif %}
         <li><a href="{{ url_for('views.about')}}">About Us</a></li>
     </ul>
     <ul class="prof">
@@ -18,7 +25,7 @@
         {% endif %}
         <li><a href="{{ url_for('auth.logout')}}">Logout</a></li>
         {% else %}
-        <li><a href="{{ url_for('auth.signup')}}">SignUp</a></li>
+        <li><a href="{{ url_for('auth.sign_up')}}">SignUp</a></li>
         {% endif %}
         <li><a href="{{ url_for('views.contactUs')}}">Contact Us</a></li>
     </ul>

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Administrator{% endblock %}
+{% block body %}
+    {% include 'sidebar.html' %}
+	<div class="main-content">
+    <h1>Update Project</h1>
+    <form method="POST" enctype="multipart/form-data">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required><br>
+
+      <label for="project_description">Description:</label>
+      <textarea id="project_description" name="project_description"></textarea><br>
+
+      <label for="date_commenced">Commenced:</label>
+      <input type="date" id="date_commenced" name="date_commenced" required><br>
+
+      <label for="date_completed">Completed:</label>
+      <input type="date" id="date_completed" name="date_completed"><br>
+
+      <label for="isCompleted">Completed:</label>
+      <input type="checkbox" id="isCompleted" name="isCompleted"><br>
+
+      <label for="client_id">Client:</label>
+      <select id="client_id" name="client_id">
+        {% for client in clients %}
+        <option value="{{ client.id }}">{{ client.name }}</option>
+        {% endfor %}
+      </select><br>
+
+      <input type="submit" value="Update">
+    </form>
+	</div>
+{% endblock %}

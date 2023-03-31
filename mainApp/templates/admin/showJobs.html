@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}Administrator{% endblock %}
+{% block body %}
+    {% include 'sidebar.html' %}
+	<div class="main-content">
+    <h1>Job Listings</h1>
+		<button>Add Job</button>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Type</th>
+          <th>Salary</th>
+          <th>Skills</th>
+          <th>Start Apply</th>
+          <th>End Apply</th>
+          <th>Available</th>
+		  <th>Edit</th>
+		  <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for job in jobs %}
+        <tr>
+          <td>{{ job.id }}</td>
+          <td>{{ job.name }}</td>
+          <td>{{ job.job_description }}</td>
+          <td>{{ job.type }}</td>
+          <td>{{ job.salary }}</td>
+          <td>{{ job.skills }}</td>
+          <td>{{ job.startApply }}</td>
+          <td>{{ job.endApply }}</td>
+          <td>{{ job.isAvailable }}</td>
+		  <td><a href="{{url_for('auth.editJob',id=job.id)}}"><button>Edit</button></a></td>
+		  <td><button>Delete</button></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+	</div>
+{% endblock %}

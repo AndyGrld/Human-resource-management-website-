@@ -1,0 +1,13 @@
+<div class="sidebar">
+	<h1>Admin Panel</h1>
+	<ul>
+		<li><a href="{{ url_for('views.mydashboard') }}">Dashboard</a></li>
+		<li><a href="{{ url_for('auth.showUsers') }}">Users</a></li>
+		<li><a href="{{ url_for('auth.showEmployees') }}">Employees</a></li>
+		<li><a href="{{ url_for('auth.showProjects') }}">Projects</a></li>
+		<li><a href="{{ url_for('auth.showJobs') }}">Jobs</a></li>
+		<li><a href="{{ url_for('auth.showApplicants') }}">Applications</a></li>
+		<li><a href="{{ url_for('auth.showClients') }}">Clients</a></li>
+		<li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+	</ul>
+</div>

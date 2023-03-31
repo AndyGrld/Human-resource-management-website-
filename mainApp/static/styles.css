@@ -9,6 +9,7 @@ a{
 body{
     background-color: rgb(19, 19, 19);
     color:white;
+	font-family: Arial, sans-serif;
 }
 
 
@@ -204,6 +205,16 @@ body{
 
 
 
+/* job */
+.part-form{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+.part-form2 div h1{
+margin: 20px 0;
+}
+
+
 /* contact us */
 .contact_header{
     display: flex;
@@ -298,7 +309,7 @@ body{
     border-radius: 5px;;
 }
 .text1 button:hover{
-    background-color: yellow;
+    background-color: rgb(194, 194, 39);
     cursor: pointer;
 }
 .body1{
@@ -373,3 +384,4 @@ footer img{
     height: 40px;
     margin: 0 20px;
 }
+

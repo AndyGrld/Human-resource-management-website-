@@ -23,7 +23,7 @@ body{
     justify-items: center;
 
 }
-.forms input{
+.forms input, input[type='text'], input[type='date'], input[type='email'], input[type='password'], input[type='number'], .part-form2 input{
     background-color: rgb(43, 43, 43);
     padding: 10px;
     margin-top: 10px;
@@ -32,13 +32,16 @@ body{
     color: white;
     border-radius: 10px;
 }
-.forms button{
+.forms button, .main-content input[type='submit'], .part-form2 button{
     width: 84%;
     margin-top: 10px;
     background-color: blue;
     padding:10px;
     border:none;
     border-radius: 10px;
+}
+.forms button:hover, .main-content:hover, .part-form2 button:hover{
+    cursor:pointer;
 }
 .grid1 h3{
     text-align: center;
@@ -50,4 +53,77 @@ body{
     height: 100vh;
     background-position: center;
     background-size: cover;
+}
+
+
+
+/* Admin pages */
+
+/* sidebar */
+.sidebar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 200px;
+	height: 100%;
+	background-color: #333;
+	color: #fff;
+	padding: 20px;
+}
+
+.main-content {
+	margin-left: 250px;
+	padding: 20px;
+}
+.main-content button{
+    margin: 10px 0;
+    padding: 5px;
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    transition: .3s;
+    font-size: 15px;
+}
+.main-content button:hover{
+    border-color: blue;
+    box-shadow: 0px 0px 5px blue;
+}
+
+.sidebar h1 {
+	font-size: 24px;
+	color: blue;
+}
+ul {
+	list-style: none;
+	margin-top: 10px;
+}
+.sidebar li {
+	margin-bottom: 10px;
+}
+.sidebar a {
+	color: #fff;
+	text-decoration: none;
+	display: block;
+	padding: 5px 10px;
+	border-radius: 5px;
+	transition: background-color 0.3s;
+}
+.sidebar a:hover {
+	background-color: #555;
+}
+.main_content{
+}
+
+
+
+/* tables */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 8px;
 }

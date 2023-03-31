@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Administrator{% endblock %}
+{% block body %}
+    {% include 'sidebar.html' %}
+	<div class="main-content">
+    <h1>Update Employee</h1>
+    {% if error %}
+      <div style="color: red;">{{ error }}</div>
+    {% endif %}
+    <form action="{{ url_for('auth.editEmployee', id=employee.id) }}" method="post" enctype="multipart/form-data">
+      <label for="about">About:</label>
+      <textarea id="about" name="about" rows="4" cols="50">{{ employee.about }}</textarea><br><br>
+      <label for="skills">Skills:</label>
+      <input type="text" id="skills" name="skills" value="{{ employee.skills }}"><br><br>
+      <label for="performance">Performance:</label>
+      <input type="text" id="performance" name="performance" value="{{ employee.performance }}"><br><br>
+      <label for="work_email">Work Email:</label>
+      <input type="email" id="work_email" name="work_email" value="{{ employee.work_email }}"><br><br>
+      <label for="isManager">Is Manager:</label>
+      <input type="checkbox" id="isManager" name="isManager" {% if employee.isManager %}checked{% endif %}><br><br>
+      <label for="manager_id">Manager ID:</label>
+      <input type="number" id="manager_id" name="manager_id" value="{{ employee.manager_id }}"><br><br>
+      <label for="PROJECT">Projects:</label>
+      <select id="PROJECT" name="PROJECT" multiple>
+        {% for project in projects %}
+          <option value="{{ project.id }}" {% if project in employee.PROJECT %}selected{% endif %}>{{ project.name }}</option>
+        {% endfor %}
+      </select><br><br>
+      <input type="submit" value="Update Employee">
+    </form>
+	</div>
+{% endblock %}

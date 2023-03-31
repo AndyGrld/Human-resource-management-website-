@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Administrator{% endblock %}
+{% block body %}
+    {% include 'sidebar.html' %}
+	<div class="main-content">
+		<h1>Project List</h1>
+		<button>Add Project</button>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Project Name</th>
+          <th>Description</th>
+          <th>Date Commenced</th>
+          <th>Date Completed</th>
+          <th>Client</th>
+          <th>Edit</th>
+		  <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for project in projects %}
+        <tr>
+          <td>{{ project.id }}</td>
+          <td>{{ project.name }}</td>
+          <td>{{ project.project_description }}</td>
+          <td>{{ project.date_commenced }}</td>
+          <td>{{ project.date_completed }}</td>
+          <td>{{ project.client.name }}</td>
+          <td><a href="{{url_for('auth.editProject',id=project.id)}}"><button>Edit</button></a></td>
+		  <td><button>Delete</button></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+	</div>
+{% endblock %}

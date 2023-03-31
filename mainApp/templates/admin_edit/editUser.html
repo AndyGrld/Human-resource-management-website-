@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Administrator{% endblock %}
+{% block body %}
+    {% include 'sidebar.html' %}
+	<div class="main-content">
+    <h1>Update User</h1>
+    <form class="editing" method="POST">
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" name="firstName" value="{{ user.firstName }}">
+      <br>
+      <label for="middleName">Middle Name:</label>
+      <input type="text" id="middleName" name="middleName" value="{{ user.middleName }}">
+      <br>
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" name="lastName" value="{{ user.lastName }}">
+      <br>
+      <label for="phone">Phone:</label>
+      <input type="text" id="phone" name="phone" value="{{ user.phone }}">
+      <br>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" value="{{ user.email }}">
+      <br>
+      <label for="date_of_birth">Date of Birth:</label>
+      <input type="date" id="date_of_birth" name="date_of_birth" value="{{ user.date_of_birth }}">
+      <br>
+      <label for="img">Image:</label>
+      <input type="text" id="img" name="img" value="{{ user.img }}">
+      <br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password">
+      <br>
+      <label for="is_superuser">Is Superuser:</label>
+      <input type="checkbox" id="is_superuser" name="is_superuser" {% if user.is_superuser %}checked{% endif %}>
+      <br>
+      <label for="is_admin">Is Admin:</label>
+      <input type="checkbox" id="is_admin" name="is_admin" {% if user.is_admin %}checked{% endif %}>
+      <br>
+      <label for="isSubscribed">Is Subscribed:</label>
+      <input type="checkbox" id="isSubscribed" name="isSubscribed" {% if user.isSubscribed %}checked{% endif %}>
+      <br>
+      <input type="submit" value="Update User">
+    </form>
+	</div>
+{% endblock %}
