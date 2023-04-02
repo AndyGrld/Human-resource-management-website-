@@ -4,7 +4,7 @@
     {% include 'sidebar.html' %}
 	<div class="main-content">
 		<h1>Project List</h1>
-		<button>Add Project</button>
+			<a href="{{url_for('auth.addProject')}}"><button>Add Project</button></a>
     <table>
       <thead>
         <tr>
@@ -28,7 +28,7 @@
           <td>{{ project.date_completed }}</td>
           <td>{{ project.client.name }}</td>
           <td><a href="{{url_for('auth.editProject',id=project.id)}}"><button>Edit</button></a></td>
-		  <td><button>Delete</button></td>
+		  <td><a href="{{url_for('auth.deleteProject', id=project.id)}}"><button>Delete</button></a></td>
         </tr>
         {% endfor %}
       </tbody>

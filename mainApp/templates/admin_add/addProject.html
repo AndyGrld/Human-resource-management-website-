@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Administrator{% endblock %}
+{% block body %}
+    {% include 'sidebar.html' %}
+	<div class="main-content">
+    <h1>Update Project</h1>
+    <form method="POST" enctype="multipart/form-data">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name"><br>
+
+      <label for="project_description">Description:</label>
+      <input type="text" id="project_description" name="project_description"><br>
+
+      <label for="date_commenced">Commenced:</label>
+      <input type="date" id="date_commenced" name="date_commenced"><br>
+
+      <label for="client_id">Client:</label>
+      <select id="client_id" name="client_id">
+        {% for client in clients %}
+        <option>{{ client.name }}</option>
+        {% endfor %}
+      </select><br>
+
+      <input type="submit" value="Add Project">
+    </form>
+	</div>
+{% endblock %}

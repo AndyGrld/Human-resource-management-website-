@@ -3,8 +3,8 @@
 {% block body %}
     {% include 'sidebar.html' %}
 	<div class="main-content">
-    <h1>Client List</h1>
-		<button>Add User</button>
+    <h1>All Users except employees(superuser exclusive)</h1>
+		<a href="{{url_for('auth.addUser')}}"><button>Add User</button></a>
 	<table>
 		<thead>
 			<tr>
@@ -38,9 +38,9 @@
 					{% if user.is_superuser%}
 				    <td><button style="border-color:red;background-color: red;color:black;">Cannot</button></td>
 					{% elif user.is_admin %}
-				    <td><button style="border-color:red;color:red;">Delete</button></td>
+				    <td><a href="{{url_for('auth.deleteUser', id=user.id)}}"><button style="border-color:red;color:red;">Delete</button></a></td>
 					{% else %}
-				    <td><button>Delete</button></td>
+				    <td><a href="{{url_for('auth.deleteUser', id=user.id)}}"><button>Delete</button></a></td>
 					{% endif %}
 				</tr>
 			{% endif %}

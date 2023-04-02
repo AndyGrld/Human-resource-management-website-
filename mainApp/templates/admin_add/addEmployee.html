@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Administrator{% endblock %}
+{% block body %}
+    {% include 'sidebar.html' %}
+	<div class="main-content">
+    <h1>Update Employee</h1>
+    {% if error %}
+      <div style="color: red;">{{ error }}</div>
+    {% endif %}
+    <form action="{{ url_for('auth.addEmployee') }}" method="post">
+        <label for="user_id">User id:</label>
+        <select id="user_id" name="user_id" multiple>
+        {% for user in users %}
+          <option>{{ user.id }}</option>
+        {% endfor %}
+      </select><br><br>
+        <label for="job_id">User id:</label>
+        <select id="job_id" name="job_id" multiple>
+        {% for job in jobs %}
+          <option>{{ job.id }}</option>
+        {% endfor %}
+      </select><br><br>
+      <label for="about">About:</label>
+      <input type="text" id="about" name="about"><br><br>
+      <label for="skills">Skills:</label>
+      <input type="text" id="skills" name="skills"><br><br>
+      <label for="performance">Performance:</label>
+      <input type="text" id="performance" name="performance"><br><br>
+      <label for="work_email">Work Email:</label>
+      <input type="email" id="work_email" name="work_email"><br><br>
+      <label for="isManager">Is Manager:</label>
+      <input type="checkbox" id="isManager" name="isManager"><br><br>
+      <label for="manager_id">Manager ID:</label>
+      <select id="manager_id" name="manager_id">
+        {% for employee in employees %}
+          <option>{{ employee.id }}</option>
+        {% endfor %}
+      </select><br><br>
+      <label for="PROJECT">Projects:</label>
+      <select id="PROJECT" name="PROJECT" multiple>
+        {% for project in projects %}
+          <option value="{{ project.id }}">{{ project.name }}</option>
+        {% endfor %}
+      </select><br><br>
+      <input type="submit" value="Add Employee">
+    </form>
+	</div>
+{% endblock %}

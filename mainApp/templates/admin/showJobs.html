@@ -4,7 +4,7 @@
     {% include 'sidebar.html' %}
 	<div class="main-content">
     <h1>Job Listings</h1>
-		<button>Add Job</button>
+      	<a href="{{url_for('auth.addJob')}}"><button>Add Job</button></a>
     <table>
       <thead>
         <tr>
@@ -34,7 +34,7 @@
           <td>{{ job.endApply }}</td>
           <td>{{ job.isAvailable }}</td>
 		  <td><a href="{{url_for('auth.editJob',id=job.id)}}"><button>Edit</button></a></td>
-		  <td><button>Delete</button></td>
+		  <td><a href="{{url_for('auth.deleteJob', id=job.id)}}"><button>Delete</button></a></td>
         </tr>
         {% endfor %}
       </tbody>

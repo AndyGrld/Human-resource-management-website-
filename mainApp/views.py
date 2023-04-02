@@ -53,19 +53,16 @@ def send_mail(name, user_email, tel, subject, body):
 
 
 @views.route('/')
-# @cache.cached(timeout=60)
 def home():
     return render_template('index.html', user=current_user)
 
 
 @views.route('/about')
-# @cache.cached(timeout=60)
 def about():
     return render_template('about.html', user=current_user)
 
 
 @views.route('/contactus', methods=['GET', 'POST'])
-# @cache.cached(timeout=60)
 def contactUs():
     if request.method == 'POST':
         name = request.form.get('name')
@@ -79,7 +76,6 @@ def contactUs():
 
 @login_required
 @views.route('/mydashboard')
-# @cache.cached(timeout=60)
 def mydashboard():
     if not current_user.is_authenticated:
         return redirect(url_for("auth.login"))
@@ -93,7 +89,7 @@ def mydashboard():
 
 
 @views.route('/dashboard/<int:id>')
-# @cache.memoize(timeout=60)
+@login_required
 def dashboard(id):
     if id == current_user.id:
         return redirect(url_for('views.mydashboard'))
@@ -109,7 +105,6 @@ def dashboard(id):
 
 @login_required
 @views.route('/employees')
-# @cache.cached(timeout=60)
 def employees():
     return render_template('employees.html', user=current_user, all_users=User.query.all(),
                            employees=Employee)
@@ -117,7 +112,6 @@ def employees():
 
 @login_required
 @views.route('/job/<int:id>', methods = ['GET', 'POST'])
-# @cache.cached(timeout=60)
 def job(id):
     job = Job.query.filter_by(id=id).first()
     if request.method == 'POST':
@@ -144,13 +138,12 @@ def job(id):
 
 
 @views.route('/jobs')
-# @cache.cached(timeout=1800)
+@login_required
 def jobs():
     return render_template('jobs.html', user=current_user, jobs=Job.query.all())
 
 
 @views.route('/subscribe')
-# @cache.cached(timeout=1800)
 def subscribe():
     if current_user.isSubscribed:
         current_user.isSubscribed = False

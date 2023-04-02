@@ -6,19 +6,19 @@
     <h1>Update Project</h1>
     <form method="POST" enctype="multipart/form-data">
       <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required><br>
+      <input type="text" id="name" name="name" value="{{ project.name }}"><br>
 
       <label for="project_description">Description:</label>
-      <textarea id="project_description" name="project_description"></textarea><br>
+      <input type="text" id="project_description" name="project_description" value="{{ project.project_description }}"><br>
 
       <label for="date_commenced">Commenced:</label>
-      <input type="date" id="date_commenced" name="date_commenced" required><br>
+      <input type="date" id="date_commenced" name="date_commenced" value="{{ project.date_commenced }}"><br>
 
       <label for="date_completed">Completed:</label>
-      <input type="date" id="date_completed" name="date_completed"><br>
+      <input type="date" id="date_completed" name="date_completed" value="{{ project.date_completed }}"><br>
 
       <label for="isCompleted">Completed:</label>
-      <input type="checkbox" id="isCompleted" name="isCompleted"><br>
+      <input type="checkbox" id="isCompleted" name="isCompleted" {% if project.isCompleted %}checked{% endif %}><br>
 
       <label for="client_id">Client:</label>
       <select id="client_id" name="client_id">
@@ -27,7 +27,7 @@
         {% endfor %}
       </select><br>
 
-      <input type="submit" value="Update">
+      <input type="submit" value="Update Project">
     </form>
 	</div>
 {% endblock %}

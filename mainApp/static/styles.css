@@ -47,7 +47,7 @@ body{
 /* messages */
 .error_message, .success_message{
     position:absolute;
-    width:100vw;
+    width:100%;
     z-index: 2;
     padding: 5px;
 }

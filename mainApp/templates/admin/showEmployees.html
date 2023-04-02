@@ -4,7 +4,7 @@
     {% include 'sidebar.html' %}
 	<div class="main-content">
         <h1>All Employees</h1>
-		<button>Add Employee</button>
+		<a href="{{url_for('auth.addEmployee')}}"><button>Add Employee</button></a>
 	<table>
 		<thead>
 			<tr>
@@ -36,7 +36,10 @@
 					<td>{{ employee.skills }}</td>
 					<td>{{ employee.performance }}</td>
 					<td><a href="{{url_for('auth.editEmployee',id=employee.id)}}"><button>Edit</button></a></td>
-					<td><button>Delete</button></td>
+					<td><a href="{{url_for('auth.deleteEmployee', id=employee.id)}}">
+						<button {% if employee.isManager %}style="border-color:green;color:green;"{% endif %}>Delete</button>
+					    </a>
+					</td>
 				</tr>
 			{% endfor %}
 		</tbody>

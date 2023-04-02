@@ -8,8 +8,42 @@
       <div style="color: red;">{{ error }}</div>
     {% endif %}
     <form action="{{ url_for('auth.editEmployee', id=employee.id) }}" method="post" enctype="multipart/form-data">
+      <br><h2>User data</h2><br>
+      <label for="firstName">First Name:</label>
+      <input type="text" id="firstName" name="firstName" value="{{ user.firstName }}">
+      <br>
+      <label for="middleName">Middle Name:</label>
+      <input type="text" id="middleName" name="middleName" value="{{ user.middleName }}">
+      <br>
+      <label for="lastName">Last Name:</label>
+      <input type="text" id="lastName" name="lastName" value="{{ user.lastName }}">
+      <br>
+      <label for="phone">Phone:</label>
+      <input type="text" id="phone" name="phone" value="{{ user.phone }}">
+      <br>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" value="{{ user.email }}">
+      <br>
+      <label for="date_of_birth">Date of Birth:</label>
+      <input type="date" id="date_of_birth" name="date_of_birth" value="{{ user.date_of_birth }}">
+      <br>
+      <label for="img">Image:</label>
+      <input type="text" id="img" name="img" value="{{ user.img }}">
+      <br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password">
+      <br>
+      <label for="is_superuser">Is Superuser:</label>
+      <input type="checkbox" id="is_superuser" name="is_superuser" {% if user.is_superuser %}checked{% endif %}>
+      <br>
+      <label for="is_admin">Is Admin:</label>
+      <input type="checkbox" id="is_admin" name="is_admin" {% if user.is_admin %}checked{% endif %}>
+      <br>
+      <label for="isSubscribed">Is Subscribed:</label>
+      <input type="checkbox" id="isSubscribed" name="isSubscribed" {% if user.isSubscribed %}checked{% endif %}>
+      <br><br><h2>Employee data</h2><br>
       <label for="about">About:</label>
-      <textarea id="about" name="about" rows="4" cols="50">{{ employee.about }}</textarea><br><br>
+      <input type="text" id="about" name="about" value="{{ employee.about }}"><br><br>
       <label for="skills">Skills:</label>
       <input type="text" id="skills" name="skills" value="{{ employee.skills }}"><br><br>
       <label for="performance">Performance:</label>

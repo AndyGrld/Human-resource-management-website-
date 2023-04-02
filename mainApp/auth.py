@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, logout_user, current_user, login_user
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -47,7 +49,6 @@ def send_mail(C_user):
 
 
 @auth.route('/login', methods=['GET', 'POST'])
-# @cache.cached(timeout=60)
 def login():
     if request.method == 'POST':
         email = request.form.get('email')
@@ -76,44 +77,44 @@ def logout():
 
 @auth.route('/admin')
 @login_required
-# @cache.cached(timeout=60)
 def admin():
     if not current_user.is_admin:
         return redirect(url_for('auth.login'))
     return render_template('admin/admin.html', now=current_user, users=User.query.all())
 
 
+@login_required
 @auth.route('/showEmployees')
 def showEmployees():
     employees = Employee.query.all()
     return render_template('admin/showEmployees.html', employees=employees)
 
-
+@login_required
 @auth.route('/showClients')
 def showClients():
     clients = Client.query.all()
     return render_template('admin/showClients.html', clients=clients)
 
-
+@login_required
 @auth.route('/showProjects')
 def showProjects():
     projects = Projects.query.all()
     return render_template('admin/showProjects.html', projects=projects)
 
-
+@login_required
 @auth.route('/showJobs')
 def showJobs():
     jobs = Job.query.all()
     return render_template('admin/showJobs.html', jobs=jobs)
 
-
+@login_required
 @auth.route('/showUsers')
 def showUsers():
     users = User.query.all()
     return render_template('admin/showUsers.html', users=users)
 
-
-@auth.route('/editUser/<int:id>', methods = ['GET', 'POST'])
+@login_required
+@auth.route('/editUser/<int:id>', methods=['GET', 'POST'])
 @login_required
 def editUser(id):
     user = User.query.get_or_404(id)
@@ -123,7 +124,7 @@ def editUser(id):
         user.lastName = request.form['lastName']
         user.phone = request.form['phone']
         user.email = request.form['email']
-        user.date_of_birth = request.form['date_of_birth']
+        user.date_of_birth = datetime.strptime(request.form['date_of_birth'], '%Y-%m-%d').date()
         user.img = request.form['img']
         user.is_superuser = True if request.form.get('is_superuser') else False
         user.is_admin = True if request.form.get('is_admin') else False
@@ -134,13 +135,61 @@ def editUser(id):
         flash('User updated successfully', 'success')
     return render_template('admin_edit/editUser.html', user=user)
 
+@login_required
+@auth.route('/admin/addUser', methods=['GET', 'POST'])
+def addUser():
+    if request.method == 'POST':
+        firstName = request.form['firstName']
+        middleName = request.form['middleName']
+        lastName = request.form['lastName']
+        phone = request.form['phone']
+        email = request.form['email']
+        date_of_birth = datetime.strptime(request.form['date_of_birth'], '%Y-%m-%d').date()
+        pic = request.form['img']
+        picname = secure_filename(pic.filename)
+        pic_name = f'{str(uuid.uuid1())}_{email}_{picname}'
+        is_superuser = True if request.form.get('is_superuser') else False
+        is_admin = True if request.form.get('is_admin') else False
+        isSubscribed = True if request.form.get('isSubscribed') else False
+        password = generate_password_hash(request.form['password'])
+        new_user = User(
+            firstName=firstName.title(),
+            middleName=middleName.title(),
+            lastName=lastName.title(),
+            phone=phone,
+            img=pic_name,
+            email=email.lower(),
+            date_of_birth=date_of_birth,
+            is_superuser=is_superuser,
+            is_admin=is_admin,
+            isSubscribed=isSubscribed,
+            password=generate_password_hash(password, method='sha256'))
+        db.session.add(new_user)
+        db.session.commit()
+        flash('User added successfully', 'success')
+        return redirect(url_for('auth.addUser'))
+    return render_template('admin_add/addUser.html')
+
 
 @auth.route('/editEmployee/<int:id>', methods=['GET', 'POST'])
 @login_required
 def editEmployee(id):
     employee = Employee.query.get_or_404(id)
     projects = Projects.query.all()
+    user = employee.user
     if request.method == 'POST':
+        user.firstName = request.form['firstName']
+        user.middleName = request.form['middleName']
+        user.lastName = request.form['lastName']
+        user.phone = request.form['phone']
+        user.email = request.form['email']
+        user.date_of_birth = datetime.strptime(request.form['date_of_birth'], '%Y-%m-%d').date()
+        user.img = request.form['img']
+        user.is_superuser = True if request.form.get('is_superuser') else False
+        user.is_admin = True if request.form.get('is_admin') else False
+        user.isSubscribed = True if request.form.get('isSubscribed') else False
+        if request.form['password']:
+            user.password = generate_password_hash(request.form['password'])
         employee.about = request.form['about']
         employee.skills = request.form['skills']
         employee.performance = request.form['performance']
@@ -151,7 +200,43 @@ def editEmployee(id):
         db.session.commit()
         flash('Employee updated successfully.', 'success')
         return redirect(url_for('auth.editEmployee', id=id))
-    return render_template('admin_edit/editEmployee.html', employee=employee, projects=projects)
+    return render_template('admin_edit/editEmployee.html', employee=employee, projects=projects, user=user)
+
+
+@auth.route('/admin/addEmployee', methods=['GET', 'POST'])
+@login_required
+def addEmployee():
+    if request.method == 'POST':
+        user_id = request.form['user_id']
+        if not user_id:
+            flash("Could not find user id", category='error')
+            return redirect(url_for('auth.addEmployee'))
+        job_id = request.form['job_id']
+        about = request.form['about']
+        skills = request.form['skills']
+        performance = request.form['performance']
+        work_email = request.form['work_email']
+        isManager = True if request.form.get('isManager') else False
+        manager_id = request.form['manager_id']
+        PROJECT = [Projects.query.get(project_id) for project_id in request.form.getlist('PROJECT')]
+        new_employee = Employee(
+            user_id=user_id,
+            job_id=job_id,
+            date_employed=datetime.datetime.today(),
+            about=about,
+            skills=skills,
+            performance=performance,
+            work_email=work_email,
+            isManager=isManager,
+            manager_id=manager_id,
+            PROJECT=PROJECT,
+        )
+        db.session.add(new_employee)
+        db.session.commit()
+        flash('Employee added successfully.', 'success')
+        return redirect(url_for('auth.addEmployee'))
+    return render_template('admin_add/addEmployee.html', employees=Employee.query.all(),
+                           projects=Projects.query.all(), users=User.query.all())
 
 
 @auth.route('/editClient/<int:id>', methods=['GET', 'POST'])
@@ -172,22 +257,70 @@ def editClient(id):
     return render_template('admin_edit/editClient.html', client=client)
 
 
+@auth.route('/admin/addClient', methods=['GET', 'POST'])
+@login_required
+def addClient():
+    if request.method == 'POST':
+        name = request.form['name']
+        address = request.form['address']
+        phone = request.form['phone']
+        email = request.form['email']
+        contact_person = request.form['contact_person']
+        contact_phone = request.form['contact_phone']
+        contact_email = request.form['contact_email']
+        new_client = Client(
+            name=name,
+            address=address,
+            phone=phone,
+            email=email,
+            contact_person=contact_person,
+            contact_phone=contact_phone,
+            contact_email=contact_email
+        )
+        db.session.add(new_client)
+        db.session.commit()
+        flash('Client added successfully', 'success')
+        return redirect(url_for('auth.addClient'))
+    return render_template('admin_add/addClient.html')
+
+@login_required
 @auth.route('/editProject/<int:id>', methods=['GET', 'POST'])
 def editProject(id):
     project = Projects.query.get(id)
     clients = Client.query.all()
-
     if request.method == 'POST':
         project.name = request.form['name']
         project.project_description = request.form['project_description']
-        project.date_commenced = request.form['date_commenced']
-        project.date_completed = request.form['date_completed']
+        project.date_commenced = datetime.strptime(request.form['date_commenced'], '%Y-%m-%d').date()
+        project.date_completed = datetime.strptime(request.form['date_completed'], '%Y-%m-%d').date()
         project.isCompleted = True if 'isCompleted' in request.form else False
         project.client_id = request.form['client_id']
         db.session.commit()
-        flash('Client updated successfully', 'success')
+        flash('Project updated successfully', 'success')
         return redirect(url_for('auth.editProject', id=id))
     return render_template('admin_edit/editProject.html', project=project, clients=clients)
+
+@login_required
+@auth.route('/admin/addProject', methods=['GET', 'POST'])
+def addProject():
+    clients = Client.query.all()
+    if request.method == 'POST':
+        name = request.form['name']
+        project_description = request.form['project_description']
+        date_commenced = datetime.strptime(request.form['date_commenced'], '%Y-%m-%d').date()
+        client_name = request.form['client_name']
+        client_id = Client.query.filter_by(name=client_name).first().id
+        new_project = Projects(
+            name=name,
+            project_description=project_description,
+            date_commenced=date_commenced,
+            client_id=client_id,
+        )
+        db.session.add(new_project)
+        db.session.commit()
+        flash('Project added successfully', 'success')
+        return redirect(url_for('auth.addProject', id=id))
+    return render_template('admin_add/addProject.html', clients=clients)
 
 
 @auth.route('/editApplicant/<int:id>', methods=['GET', 'POST'])
@@ -197,7 +330,7 @@ def editApplicant(id):
     if request.method == 'POST':
         user_id = request.form['user_id']
         job_id = request.form['job_id']
-        date_submitted = request.form['date_submitted']
+        date_submitted = datetime.strptime(request.form['date_submitted'], '%Y-%m-%d').date()
         status = request.form['status']
         resume = request.files['resume']
         cover_file = request.files['cover_file']
@@ -216,6 +349,7 @@ def editApplicant(id):
             cover_file.save(cover_file_path)
             applicant.cover_file = cover_filename
         db.session.commit()
+        flash('Applicant updated successfully', 'success')
         return redirect(url_for('auth.editApplicant', id=applicant.id))
     return render_template('admin_edit/editApplicant.html', applicant=applicant)
 
@@ -229,8 +363,8 @@ def editJob(id):
         job.job_description = request.form['description']
         job.salary = request.form['salary']
         job.skills = request.form['skills']
-        job.startApply = request.form['start_date']
-        job.endApply = request.form['end_date']
+        job.startApply = datetime.strptime(request.form['start_date'], '%Y-%m-%d').date()
+        job.endApply = datetime.strptime(request.form['end_date'], '%Y-%m-%d').date()
         job.type = request.form['type']
         job.isAvailable = True if 'is_available' in request.form else False
         db.session.commit()
@@ -239,6 +373,35 @@ def editJob(id):
     return render_template('admin_edit/editJob.html', job=job)
 
 
+@auth.route('/admin/addJob', methods=['GET', 'POST'])
+@login_required
+def addJob():
+    if request.method == 'POST':
+        name = request.form['name']
+        job_description = request.form['description']
+        salary = request.form['salary']
+        skills = request.form['skills']
+        startApply = datetime.strptime(request.form['start_date'], '%Y-%m-%d').date()
+        endApply = datetime.strptime(request.form['end_date'], '%Y-%m-%d').date()
+        type = request.form['type']
+        isAvailable = True if 'is_available' in request.form else False
+        new_job = Job(
+            name=name,
+            job_description=job_description,
+            salary=salary,
+            skills=skills,
+            startApply=startApply,
+            endApply=endApply,
+            type=type,
+            isAvailable=isAvailable
+        )
+        db.session.add(new_job)
+        db.session.commit()
+        flash('Job added successfully', 'success')
+        return redirect(url_for('auth.addJob', id=id))
+    return render_template('admin_add/addJob.html')
+
+@login_required
 @auth.route('/showApplicants')
 def showApplicants():
     applicants = Applicant.query.all()
@@ -246,8 +409,67 @@ def showApplicants():
     return render_template('admin/showApplicants.html', users=users, applicants=applicants)
 
 
+@login_required
+@auth.route('/admin/deleteUser/<int:id>')
+def deleteUser(id):
+    user = User.query.filter_by(id=id).first()
+    db.session.delete(user)
+    db.session.commit()
+    flash("User deleted", category='success')
+    return redirect(url_for("auth.showUsers"))
+
+
+@auth.route('/admin/deleteEmployee/<int:id>')
+@login_required
+def deleteEmployee(id):
+    employee = Employee.query.filter_by(id=id).first()
+    db.session.delete(employee)
+    db.session.commit()
+    flash("Employee deleted", category='success')
+    return redirect(url_for("auth.showEmployees"))
+
+
+@auth.route('/admin/deleteJob/<int:id>')
+@login_required
+def deleteJob(id):
+    job = Job.query.filter_by(id=id).first()
+    db.session.delete(job)
+    db.session.commit()
+    flash("Job deleted", category='success')
+    return redirect(url_for("auth.showJobs"))
+
+
+@auth.route('/admin/deleteClient/<int:id>')
+@login_required
+def deleteClient(id):
+    client = Client.query.filter_by(id=id).first()
+    db.session.delete(client)
+    db.session.commit()
+    flash("Client deleted", category='success')
+    return redirect(url_for("auth.showClients"))
+
+
+@auth.route('/admin/deleteProject/<int:id>')
+@login_required
+def deleteProject(id):
+    project = Projects.query.filter_by(id=id).first()
+    db.session.delete(project)
+    db.session.commit()
+    flash("Project deleted", category='success')
+    return redirect(url_for("auth.showProjects"))
+
+
+@auth.route('/admin/deleteApplicant/<int:id>')
+@login_required
+def deleteApplicant(id):
+    applicant = Applicant.query.filter_by(id=id).first()
+    db.session.delete(applicant)
+    db.session.commit()
+    flash("Applicant deleted", category='success')
+    return redirect(url_for("auth.showApplicants"))
+
+
 @auth.route('/signup', methods=['GET', 'POST'])
-# @cache.cached(timeout=60)
 def sign_up():
     if request.method == 'POST':
         firstName = request.form.get('fname')

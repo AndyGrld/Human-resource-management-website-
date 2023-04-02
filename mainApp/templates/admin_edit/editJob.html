@@ -11,7 +11,7 @@
     </div>
     <div class="form-group">
       <label for="description">Job Description:</label>
-      <textarea class="form-control" id="description" name="description" rows="5">{{ job.job_description }}</textarea>
+      <input type="text" class="form-control" id="description" name="description" value="{{ job.job_description }}">
     </div>
     <div class="form-group">
       <label for="salary">Salary:</label>
@@ -41,7 +41,7 @@
       <label for="is-available">Is Available:</label>
       <input type="checkbox" class="form-control" id="is-available" name="is_available" {% if job.isAvailable %}checked{% endif %}>
     </div>
-    <button type="submit" class="btn btn-primary">Update Job</button>
+    <input type="submit" value="Update Job">
   </form>
 	</div>
 {% endblock %}

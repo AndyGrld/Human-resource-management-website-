@@ -23,7 +23,7 @@ body{
     justify-items: center;
 
 }
-.forms input, input[type='text'], input[type='date'], input[type='email'], input[type='password'], input[type='number'], .part-form2 input{
+.forms input, input[type='text'], .main-content select, input[type='date'], input[type='email'], input[type='password'], input[type='number'], .part-form2 input{
     background-color: rgb(43, 43, 43);
     padding: 10px;
     margin-top: 10px;
@@ -40,7 +40,7 @@ body{
     border:none;
     border-radius: 10px;
 }
-.forms button:hover, .main-content:hover, .part-form2 button:hover{
+.forms button:hover, .main-content input[type='submit']:hover, .part-form2 button:hover{
     cursor:pointer;
 }
 .grid1 h3{
@@ -72,7 +72,7 @@ body{
 }
 
 .main-content {
-	margin-left: 250px;
+	margin-left: 235px;
 	padding: 20px;
 }
 .main-content button{
