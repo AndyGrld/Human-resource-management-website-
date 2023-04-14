@@ -96,6 +96,7 @@ def showEmployees():
 @auth.route('/showClients')
 def showClients():
     if not current_user.is_admin:
+        return "Page not found"
     clients = Client.query.all()
     return render_template('admin/showClients.html', clients=clients)
 
