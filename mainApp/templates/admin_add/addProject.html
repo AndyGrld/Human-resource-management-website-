@@ -15,7 +15,7 @@
       <input type="date" id="date_commenced" name="date_commenced"><br>
 
       <label for="client_id">Client:</label>
-      <select id="client_id" name="client_id">
+      <select id="client_id" name="client_name">
         {% for client in clients %}
         <option>{{ client.name }}</option>
         {% endfor %}

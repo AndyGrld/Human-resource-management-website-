@@ -83,23 +83,27 @@
         <div class="tabular">
             <div id="key">Projects worked on</div>
             <div id="value">
+                {% if project %}
                 {% for Project in project %}
                     {% if Project.isCompleted %}
-                        {{Project.name|title}}
-                    {% else %}
-                        None
+                        {{Project.name|title}},
                     {% endif %}
                 {% endfor %}
+                {% else %}
+                None
+                {% endif %}
             </div>
             <div id="key">Projects working on</div>
             <div id="value">
+                {% if project %}
                 {% for Project in project %}
                     {% if not Project.isCompleted %}
-                        {{Project.name|title}}
-                    {% else %}
-                        None
+                        {{Project.name|title}},
                     {% endif %}
                 {% endfor %}
+                {% else %}
+                None
+                {% endif %}
             </div>
         </div>
     </div>

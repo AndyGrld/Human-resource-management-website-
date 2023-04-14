@@ -9,9 +9,15 @@
         <p>User ID: <input type="text" name="user_id" value="{{ applicant.user_id }}" required></p>
         <p>Job ID: <input type="text" name="job_id" value="{{ applicant.job_id }}" required></p>
         <p>Date Submitted: <input type="date" name="date_submitted" value="{{ applicant.date_submitted }}" required></p>
-        <p>Status: <input type="text" name="status" value="{{ applicant.status }}" required></p>
-        <p>Resume: <input type="file" name="resume" accept=".pdf,.doc,.docx" required></p>
-        <p>Cover Letter: <input type="file" name="cover_file" accept=".pdf,.doc,.docx" required></p>
+        <p>Status:
+            <select class="form-control" id="status" name="status">
+                <option value="Pending Review" {% if applicant.status == 'Pending Review' %}selected{% endif %}>Pending Review</option>
+                <option value="Accepted" {% if applicant.status == 'Accepted' %}selected{% endif %}>Accepted</option>
+                <option value="Disapproved" {% if applicant.status == 'Disapproved' %}selected{% endif %}>Disapproved</option>
+            </select>
+        </p><br>
+        <p>Resume: <input type="file" name="resume" accept=".pdf,.doc,.docx"></p><br>
+        <p>Cover Letter: <input type="file" name="cover_file" accept=".pdf,.doc,.docx"></p><br>
         <input type="submit" value="Update Applicant">
     </form>
 </body>

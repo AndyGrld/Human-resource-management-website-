@@ -121,12 +121,10 @@ def job(id):
         resume_file = request.files['resume']
         cover_file = request.files['cover_file']
         if resume_file and allowed_file(resume_file.filename) and cover_file and allowed_file(cover_file.filename):
-            # save uploaded files with unique filenames
             resume_filename = secure_filename(resume_file.filename)
             cover_filename = secure_filename(cover_file.filename)
             resume_file.save(os.path.join("mainApp/static/files/resume", resume_filename))
             cover_file.save(os.path.join("mainApp/static/files/cover_file", cover_filename))
-            # create new applicant record in database
             new_applicant = Applicant(user_id=current_user.id, job_id=id, resume=resume_filename, cover_file=cover_filename)
             db.session.add(new_applicant)
             db.session.commit()

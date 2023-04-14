@@ -25,7 +25,10 @@
           <td>{{ users[applicant.user_id - 1].email }}</td>
           <td>{{ applicant.job_id }}</td>
           <td>{{ applicant.date_submitted }}</td>
-          <td>{{ applicant.status }}</td>
+          <td {% if applicant.status == 'Accepted' %}style='color:green;'{% endif %}
+          {% if applicant.status == 'Disapproved' %}style='color:red;'{% endif %}>
+          {{ applicant.status }}
+          </td>
           <td>{{ applicant.resume }}</td>
           <td>{{ applicant.cover_file }}</td>
           <td><a href="{{url_for('auth.editApplicant',id=applicant.id)}}"><button>Edit</button></a></td>

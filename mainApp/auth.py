@@ -86,37 +86,53 @@ def admin():
 @login_required
 @auth.route('/showEmployees')
 def showEmployees():
+    if not current_user.is_admin:
+        return "Page not found"
     employees = Employee.query.all()
     return render_template('admin/showEmployees.html', employees=employees)
+
 
 @login_required
 @auth.route('/showClients')
 def showClients():
+    if not current_user.is_admin:
     clients = Client.query.all()
     return render_template('admin/showClients.html', clients=clients)
+
 
 @login_required
 @auth.route('/showProjects')
 def showProjects():
+    if not current_user.is_admin:
+        return "Page not found"
     projects = Projects.query.all()
     return render_template('admin/showProjects.html', projects=projects)
+
 
 @login_required
 @auth.route('/showJobs')
 def showJobs():
+    if not current_user.is_admin:
+        return "Page not found"
     jobs = Job.query.all()
     return render_template('admin/showJobs.html', jobs=jobs)
+
 
 @login_required
 @auth.route('/showUsers')
 def showUsers():
+    if not current_user.is_admin:
+        return "Page not found"
     users = User.query.all()
     return render_template('admin/showUsers.html', users=users)
+
 
 @login_required
 @auth.route('/editUser/<int:id>', methods=['GET', 'POST'])
 @login_required
 def editUser(id):
+    if not current_user.is_admin:
+        return "Page not found"
     user = User.query.get_or_404(id)
     if request.method == 'POST':
         user.firstName = request.form['firstName']
@@ -135,9 +151,12 @@ def editUser(id):
         flash('User updated successfully', 'success')
     return render_template('admin_edit/editUser.html', user=user)
 
+
 @login_required
 @auth.route('/admin/addUser', methods=['GET', 'POST'])
 def addUser():
+    if not current_user.is_admin:
+        return "Page not found"
     if request.method == 'POST':
         firstName = request.form['firstName']
         middleName = request.form['middleName']
@@ -174,6 +193,8 @@ def addUser():
 @auth.route('/editEmployee/<int:id>', methods=['GET', 'POST'])
 @login_required
 def editEmployee(id):
+    if not current_user.is_admin:
+        return "Page not found"
     employee = Employee.query.get_or_404(id)
     projects = Projects.query.all()
     user = employee.user
@@ -206,6 +227,8 @@ def editEmployee(id):
 @auth.route('/admin/addEmployee', methods=['GET', 'POST'])
 @login_required
 def addEmployee():
+    if not current_user.is_admin:
+        return "Page not found"
     if request.method == 'POST':
         user_id = request.form['user_id']
         if not user_id:
@@ -242,6 +265,8 @@ def addEmployee():
 @auth.route('/editClient/<int:id>', methods=['GET', 'POST'])
 @login_required
 def editClient(id):
+    if not current_user.is_admin:
+        return "Page not found"
     client = Client.query.get_or_404(id)
     if request.method == 'POST':
         client.name = request.form['name']
@@ -260,6 +285,8 @@ def editClient(id):
 @auth.route('/admin/addClient', methods=['GET', 'POST'])
 @login_required
 def addClient():
+    if not current_user.is_admin:
+        return "Page not found"
     if request.method == 'POST':
         name = request.form['name']
         address = request.form['address']
@@ -283,9 +310,12 @@ def addClient():
         return redirect(url_for('auth.addClient'))
     return render_template('admin_add/addClient.html')
 
+
 @login_required
 @auth.route('/editProject/<int:id>', methods=['GET', 'POST'])
 def editProject(id):
+    if not current_user.is_admin:
+        return "Page not found"
     project = Projects.query.get(id)
     clients = Client.query.all()
     if request.method == 'POST':
@@ -300,9 +330,12 @@ def editProject(id):
         return redirect(url_for('auth.editProject', id=id))
     return render_template('admin_edit/editProject.html', project=project, clients=clients)
 
+
 @login_required
 @auth.route('/admin/addProject', methods=['GET', 'POST'])
 def addProject():
+    if not current_user.is_admin:
+        return "Page not found"
     clients = Client.query.all()
     if request.method == 'POST':
         name = request.form['name']
@@ -326,6 +359,8 @@ def addProject():
 @auth.route('/editApplicant/<int:id>', methods=['GET', 'POST'])
 @login_required
 def editApplicant(id):
+    if not current_user.is_admin:
+        return "Page not found"
     applicant = Applicant.query.get_or_404(id)
     if request.method == 'POST':
         user_id = request.form['user_id']
@@ -357,6 +392,8 @@ def editApplicant(id):
 @auth.route('/editJob/<int:id>', methods=['GET', 'POST'])
 @login_required
 def editJob(id):
+    if not current_user.is_admin:
+        return "Page not found"
     job = Job.query.get_or_404(id)
     if request.method == 'POST':
         job.name = request.form['name']
@@ -376,6 +413,8 @@ def editJob(id):
 @auth.route('/admin/addJob', methods=['GET', 'POST'])
 @login_required
 def addJob():
+    if not current_user.is_admin:
+        return "Page not found"
     if request.method == 'POST':
         name = request.form['name']
         job_description = request.form['description']
@@ -401,9 +440,12 @@ def addJob():
         return redirect(url_for('auth.addJob', id=id))
     return render_template('admin_add/addJob.html')
 
+
 @login_required
 @auth.route('/showApplicants')
 def showApplicants():
+    if not current_user.is_admin:
+        return "Page not found"
     applicants = Applicant.query.all()
     users = User.query.all()
     return render_template('admin/showApplicants.html', users=users, applicants=applicants)
@@ -412,6 +454,8 @@ def showApplicants():
 @login_required
 @auth.route('/admin/deleteUser/<int:id>')
 def deleteUser(id):
+    if not current_user.is_admin:
+        return "Page not found"
     user = User.query.filter_by(id=id).first()
     db.session.delete(user)
     db.session.commit()
@@ -422,6 +466,8 @@ def deleteUser(id):
 @auth.route('/admin/deleteEmployee/<int:id>')
 @login_required
 def deleteEmployee(id):
+    if not current_user.is_admin:
+        return "Page not found"
     employee = Employee.query.filter_by(id=id).first()
     db.session.delete(employee)
     db.session.commit()
@@ -432,6 +478,8 @@ def deleteEmployee(id):
 @auth.route('/admin/deleteJob/<int:id>')
 @login_required
 def deleteJob(id):
+    if not current_user.is_admin:
+        return "Page not found"
     job = Job.query.filter_by(id=id).first()
     db.session.delete(job)
     db.session.commit()
@@ -442,6 +490,8 @@ def deleteJob(id):
 @auth.route('/admin/deleteClient/<int:id>')
 @login_required
 def deleteClient(id):
+    if not current_user.is_admin:
+        return "Page not found"
     client = Client.query.filter_by(id=id).first()
     db.session.delete(client)
     db.session.commit()
@@ -452,6 +502,8 @@ def deleteClient(id):
 @auth.route('/admin/deleteProject/<int:id>')
 @login_required
 def deleteProject(id):
+    if not current_user.is_admin:
+        return "Page not found"
     project = Projects.query.filter_by(id=id).first()
     db.session.delete(project)
     db.session.commit()
@@ -462,6 +514,8 @@ def deleteProject(id):
 @auth.route('/admin/deleteApplicant/<int:id>')
 @login_required
 def deleteApplicant(id):
+    if not current_user.is_admin:
+        return "Page not found"
     applicant = Applicant.query.filter_by(id=id).first()
     db.session.delete(applicant)
     db.session.commit()
@@ -484,7 +538,7 @@ def sign_up():
         picname = secure_filename(pic.filename)
         pic_name = f'{str(uuid.uuid1())}_{email}_{picname}'
 
-        if picname.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.gif', '.jfif')):
+        if picname.lower().endswith(('.png', '.jpg', '.jpeg', '.tiff', '.bmp', '.jfif')):
             pic.save(os.path.join("mainApp/static/profiles/", pic_name))
         else:
             flash('Please upload a picture', category='error')
