@@ -1,6 +1,7 @@
 # Human Management System
 
 A website to keep track of employees and job openings.
+All uploaded profile images must include a detectable face.
 The first account created becomes the admin/superuser.
 
 ## Getting started
@@ -8,6 +9,7 @@ The first account created becomes the admin/superuser.
 2. Enter your email address on line 2 of password.txt(emails from site will be sent to this account)
 3. pip install -r requirements.txt
 4. set FLASK_APP = main.py
+   set FLASK_DEBUG = 1 (optional, for debugging purposes)
 5. flask run
 
 ## Admin (Human Resource Manager)
