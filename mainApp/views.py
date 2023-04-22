@@ -57,11 +57,6 @@ def home():
     return render_template('index.html', user=current_user)
 
 
-@views.route('/about')
-def about():
-    return render_template('about.html', user=current_user)
-
-
 @views.route('/contactus', methods=['GET', 'POST'])
 def contactUs():
     if request.method == 'POST':
@@ -140,16 +135,3 @@ def job(id):
 def jobs():
     return render_template('jobs.html', user=current_user, jobs=Job.query.all())
 
-
-@views.route('/subscribe')
-def subscribe():
-    if current_user.isSubscribed:
-        current_user.isSubscribed = False
-        db.session.commit()
-        flash("Unsubscribed", category='error')
-        return redirect(url_for("views.home"))
-    else:
-        current_user.isSubscribed = True
-        db.session.commit()
-        flash("Subscription successful", category='success')
-        return redirect(url_for("views.home"))

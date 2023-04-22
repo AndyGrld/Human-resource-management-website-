@@ -80,7 +80,12 @@ def logout():
 def admin():
     if not current_user.is_admin:
         return redirect(url_for('auth.login'))
-    return render_template('admin/admin.html', now=current_user, users=User.query.all())
+
+    return render_template('admin/admin.html', now=current_user, users=User.query.all(), projects=Projects.query.all(),
+                           jobs = Job.query.all(), available_jobs = Job.query.filter_by(isAvailable=True).all(),
+                           employees=Employee.query.all(), clients=Client.query.all(),
+                           applicants=Applicant.query.all(),
+                           completed_projects = Projects.query.filter_by(isCompleted=True).all())
 
 
 @login_required
@@ -125,7 +130,8 @@ def showUsers():
     if not current_user.is_admin:
         return "Page not found"
     users = User.query.all()
-    return render_template('admin/showUsers.html', users=users)
+    others = User.query.filter_by(EMPLOYEE = None).all()
+    return render_template('admin/showUsers.html', users=users, others=others)
 
 
 @login_required
@@ -145,7 +151,6 @@ def editUser(id):
         user.img = request.form['img']
         user.is_superuser = True if request.form.get('is_superuser') else False
         user.is_admin = True if request.form.get('is_admin') else False
-        user.isSubscribed = True if request.form.get('isSubscribed') else False
         if request.form['password']:
             user.password = generate_password_hash(request.form['password'])
         db.session.commit()
@@ -170,7 +175,6 @@ def addUser():
         pic_name = f'{str(uuid.uuid1())}_{email}_{picname}'
         is_superuser = True if request.form.get('is_superuser') else False
         is_admin = True if request.form.get('is_admin') else False
-        isSubscribed = True if request.form.get('isSubscribed') else False
         password = generate_password_hash(request.form['password'])
         new_user = User(
             firstName=firstName.title(),
@@ -182,7 +186,6 @@ def addUser():
             date_of_birth=date_of_birth,
             is_superuser=is_superuser,
             is_admin=is_admin,
-            isSubscribed=isSubscribed,
             password=generate_password_hash(password, method='sha256'))
         db.session.add(new_user)
         db.session.commit()
@@ -196,6 +199,7 @@ def addUser():
 def editEmployee(id):
     if not current_user.is_admin:
         return "Page not found"
+    jobs = Job.query.all()
     employee = Employee.query.get_or_404(id)
     projects = Projects.query.all()
     user = employee.user
@@ -209,7 +213,6 @@ def editEmployee(id):
         user.img = request.form['img']
         user.is_superuser = True if request.form.get('is_superuser') else False
         user.is_admin = True if request.form.get('is_admin') else False
-        user.isSubscribed = True if request.form.get('isSubscribed') else False
         if request.form['password']:
             user.password = generate_password_hash(request.form['password'])
         employee.about = request.form['about']
@@ -222,7 +225,7 @@ def editEmployee(id):
         db.session.commit()
         flash('Employee updated successfully.', 'success')
         return redirect(url_for('auth.editEmployee', id=id))
-    return render_template('admin_edit/editEmployee.html', employee=employee, projects=projects, user=user)
+    return render_template('admin_edit/editEmployee.html', employee=employee, projects=projects, user=user, jobs=jobs)
 
 
 @auth.route('/admin/addEmployee', methods=['GET', 'POST'])
@@ -260,7 +263,7 @@ def addEmployee():
         flash('Employee added successfully.', 'success')
         return redirect(url_for('auth.addEmployee'))
     return render_template('admin_add/addEmployee.html', employees=Employee.query.all(),
-                           projects=Projects.query.all(), users=User.query.all())
+                           projects=Projects.query.all(), users=User.query.all(), jobs=Job.query.all())
 
 
 @auth.route('/editClient/<int:id>', methods=['GET', 'POST'])
@@ -275,7 +278,6 @@ def editClient(id):
         client.phone = request.form['phone']
         client.email = request.form['email']
         client.contact_person = request.form['contact_person']
-        client.contact_phone = request.form['contact_phone']
         client.contact_email = request.form['contact_email']
         db.session.commit()
         flash('Client updated successfully', 'success')
@@ -294,7 +296,6 @@ def addClient():
         phone = request.form['phone']
         email = request.form['email']
         contact_person = request.form['contact_person']
-        contact_phone = request.form['contact_phone']
         contact_email = request.form['contact_email']
         new_client = Client(
             name=name,
@@ -302,7 +303,6 @@ def addClient():
             phone=phone,
             email=email,
             contact_person=contact_person,
-            contact_phone=contact_phone,
             contact_email=contact_email
         )
         db.session.add(new_client)
@@ -323,7 +323,8 @@ def editProject(id):
         project.name = request.form['name']
         project.project_description = request.form['project_description']
         project.date_commenced = datetime.strptime(request.form['date_commenced'], '%Y-%m-%d').date()
-        project.date_completed = datetime.strptime(request.form['date_completed'], '%Y-%m-%d').date()
+        if request.form['date_completed']:
+            project.date_completed = datetime.strptime(request.form['date_completed'], '%Y-%m-%d').date()
         project.isCompleted = True if 'isCompleted' in request.form else False
         project.client_id = request.form['client_id']
         db.session.commit()
@@ -363,6 +364,7 @@ def editApplicant(id):
     if not current_user.is_admin:
         return "Page not found"
     applicant = Applicant.query.get_or_404(id)
+    jobs = Job.query.all()
     if request.method == 'POST':
         user_id = request.form['user_id']
         job_id = request.form['job_id']
@@ -387,7 +389,7 @@ def editApplicant(id):
         db.session.commit()
         flash('Applicant updated successfully', 'success')
         return redirect(url_for('auth.editApplicant', id=applicant.id))
-    return render_template('admin_edit/editApplicant.html', applicant=applicant)
+    return render_template('admin_edit/editApplicant.html', applicant=applicant, jobs=jobs)
 
 
 @auth.route('/editJob/<int:id>', methods=['GET', 'POST'])
@@ -458,6 +460,7 @@ def deleteUser(id):
     if not current_user.is_admin:
         return "Page not found"
     user = User.query.filter_by(id=id).first()
+    os.remove(os.path.join('static/profiles',user.img))
     db.session.delete(user)
     db.session.commit()
     flash("User deleted", category='success')
@@ -518,6 +521,8 @@ def deleteApplicant(id):
     if not current_user.is_admin:
         return "Page not found"
     applicant = Applicant.query.filter_by(id=id).first()
+    os.remove(os.path.join('mainApp/static/files/cover_file', applicant.cover_file))
+    os.remove(os.path.join('mainApp/static/files/resume', applicant.resume))
     db.session.delete(applicant)
     db.session.commit()
     flash("Applicant deleted", category='success')
@@ -588,12 +593,12 @@ def sign_up():
             send_mail(new_user)
             Check = User.query.filter_by(email=email.lower()).first()
             if Check is None:
-                os.remove(os.path.join("mainApp/static/profiles/", pic_name))
+                os.remove(os.path.join("static/profiles/", pic_name))
                 flash('Form could not be processed please try again', category='error')
                 return render_template('signup.html', user=current_user)
             if Check.email == email.lower():
                 flash('Account created, an email has been sent to you.', category='success')
                 return redirect(url_for("auth.login"))
-            os.remove(os.path.join("mainApp/static/profiles/", pic_name))
+            os.remove(os.path.join("static/profiles/", pic_name))
             flash('Form could not be processed please try again', category='error')
     return render_template('signup.html', user=current_user)

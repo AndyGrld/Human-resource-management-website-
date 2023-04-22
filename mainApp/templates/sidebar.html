@@ -1,6 +1,7 @@
 <div class="sidebar">
 	<h1>Admin Panel</h1>
 	<ul>
+		<li><a href="{{ url_for('auth.admin') }}">Admin</a></li>
 		<li><a href="{{ url_for('views.mydashboard') }}">Dashboard</a></li>
 		<li><a href="{{ url_for('auth.showUsers') }}">Users</a></li>
 		<li><a href="{{ url_for('auth.showEmployees') }}">Employees</a></li>

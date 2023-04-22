@@ -3,7 +3,8 @@
 {% block body %}
     {% include 'sidebar.html' %}
 	<div class="main-content">
-    <h1>All Users except employees(superuser exclusive)</h1>
+    <h1>All Users except employees(superuser exclusive)</h1><br>
+      <h2>Total: {{1+others|length}}</h2>
 		<a href="{{url_for('auth.addUser')}}"><button>Add User</button></a>
 	<table>
 		<thead>
@@ -16,7 +17,6 @@
 				<th>Email</th>
 				<th>Date of Birth</th>
 				<th>Is Admin</th>
-				<th>Is Subscribed</th>
 				<th>Edit</th>
 				<th>Delete</th>
 			</tr>
@@ -33,7 +33,6 @@
 					<td>{{ user.email }}</td>
 					<td>{{ user.date_of_birth }}</td>
 					<td>{{ user.is_admin }}</td>
-					<td>{{ user.isSubscribed }}</td>
 				    <td><a href="{{url_for('auth.editUser',id=user.id)}}"><button>Edit</button></a></td>
 					{% if user.is_superuser%}
 				    <td><button style="border-color:red;background-color: red;color:black;">Cannot</button></td>

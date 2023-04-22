@@ -9,14 +9,6 @@
         {% endif %}
         {% endif %}
         <li><a href="{{ url_for('views.jobs')}}">Jobs</a></li>
-        {% if user.is_authenticated %}
-        {% if user.isSubscribed %}
-        <li><a href="{{ url_for('views.subscribe')}}">Unsubscribe</a></li>
-        {% else %}
-        <li><a href="{{ url_for('views.subscribe')}}">Subscribe</a></li>
-        {% endif %}
-        {% endif %}
-        <li><a href="{{ url_for('views.about')}}">About Us</a></li>
     </ul>
     <ul class="prof">
         {% if user.is_authenticated %}

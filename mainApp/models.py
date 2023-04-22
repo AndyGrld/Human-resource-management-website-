@@ -19,7 +19,6 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150), nullable=False)
     is_superuser = db.Column(db.Boolean, default=False)
     is_admin = db.Column(db.Boolean, default=False)
-    isSubscribed = db.Column(db.Boolean, default=False)
     EMPLOYEE = db.relationship('Employee', back_populates='user', cascade='all,delete-orphan', viewonly=True)
     APPLICANT = db.relationship('Applicant', cascade='all,delete-orphan')
 
@@ -47,7 +46,6 @@ class Client(db.Model):
     phone = db.Column(db.String(20))
     email = db.Column(db.String(100))
     contact_person = db.Column(db.String(100))
-    contact_phone = db.Column(db.String(20))
     contact_email = db.Column(db.String(100))
     projects = db.relationship('Projects', backref='client')
 
@@ -59,7 +57,7 @@ class Projects(db.Model):
     date_commenced = db.Column(db.Date)
     date_completed = db.Column(db.Date, default=None)
     isCompleted = db.Column(db.Boolean, default=False)
-    client_id = db.Column(db.Integer, db.ForeignKey('client.id'), default="Anonymous")
+    client_id = db.Column(db.Integer, db.ForeignKey('client.id'), default="0")
 
 
 class Job(db.Model):
@@ -73,7 +71,7 @@ class Job(db.Model):
     endApply = db.Column(db.Date, default=None)
     type = db.Column(db.String(10), default="Full time")
     EMPLOYEE = db.relationship('Employee', backref='employee', cascade='all,delete-orphan')
-    APPLICANT = db.relationship('Applicant', backref='applicant', cascade='all,delete-orphan')
+    APPLICANT = db.relationship('Applicant', backref='job', cascade='all,delete-orphan')
 
 
 class Applicant(db.Model):

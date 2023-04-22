@@ -122,19 +122,25 @@ body{
 .employees{
     display: grid;
     margin-bottom: 15px;
-    justify-content: center;
-    align-items: center;
+    grid-template-columns: repeat(2, 1fr);
     margin: 10px 0;
 }
+@media screen and (max-width:900px) {
+    .employees{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
 .ep_row{
-    max-width: 1200px;
     display: flex;
     padding: 20px;
-    margin: 15px 0;
+    margin: 15px 15px;
     background-color: black;
     border: 1px solid blue;
-    box-shadow: 0 0 5px blue;
     border-radius: 15px;
+}
+.ep_row:hover{
+    box-shadow: 0 0 7px blue;
 }
 .employees a{
     color:white;
@@ -154,6 +160,36 @@ body{
     margin: 5px 0;
 }
 
+
+/* jobs */
+.jobs{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 15px;
+    color: white;
+}
+.jobs .jb_row{
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 15px;
+    margin-right: 15px;
+    background-color: black;
+    border: 1px solid blue;
+    height: 85%;
+    border-radius: 15px;
+}
+.jobs .jb_row:hover{
+    box-shadow: 0 0 7px blue;
+}
+.jobs a{
+    color: white;
+}
+@media screen and (max-width:880px) {
+    .jobs{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
 
 
 /* dashboard */
@@ -272,116 +308,8 @@ margin: 20px 0;
     border:none;
     border-radius: 10px;
 }
-
-
-
-/* about us */
-.head1{
-    height: 70vh;
-    background: linear-gradient(rgba(17, 17, 17, 0.788),rgba(17, 17, 17, 0.788)),url('img/face1.jfif');
-    background-size: cover;
-    background-position: center;
-    display: grid;
-    padding: 40px;
-    grid-template-columns: 2fr 1fr;
-    justify-items: start;
-    align-items: center;
-}
-.text1 h2{
-    font-size: 60px;
-    text-align:center;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-    border-bottom: 2px solid blue;
-}
-.text1 p{
-    font-size: 20px;
-    font-weight:lighter;
-}
-.text1 button{
-    border: 1px solid white;
-    transition: .3s;
-    padding: 10px;
-    background-color: transparent;
-    color: white;
-    margin: 25px 0;
-    font-size: 20px;
-    border-radius: 5px;;
-}
-.text1 button:hover{
-    background-color: rgb(194, 194, 39);
-    cursor: pointer;
-}
-.body1{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    color: black;
-    background-color: whitesmoke;
-    padding: 40px 25px;
-}
-.body1 .left_grid{
-    margin-right: 15px;
-}
-.body1 .left_grid h3{
-    font-size: 50px;
-}
-.body1 .left_grid span{
-    color: gold;
-}
-.body1 .left_grid p{
-    color: gray;
-    font-size: 20px;
-}
-.body1 .right_grid p{
-    font-size: 20px;
-    line-height: 20px;
-}
-.body2{
+.grid_mail form textarea{
     padding: 15px;
-}
-.body2 h3{
-    text-align: center;
-    font-size: 40px;
-    margin: 20px 0;
-    border-bottom: 2px solid gold;
-    color: gold;
-}
-.body2 .f_grid{
-    display: flex;
-}
-.f_grid .card1{
-    margin: 15px;
-}
-.f_grid .card1 p{
-    border: 1px white solid;
-    padding: 10px;
-    font-size: 18px;
-    grid-template-rows: 2fr 1fr;
-    text-align:center;
-}
-.card1 p img{
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    position: relative;
-    top: 75px;
-}
-.card1 h4{
-    font-size: 30px;
-    margin-top: 75px;
-    color: gold;
-    text-align: center;
-}
-footer{
-    background-color: rgb(32, 32, 32);
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    align-items: center;
-}
-footer img{
-    width: 40px;
-    height: 40px;
-    margin: 0 20px;
-}
-
+    font-size: 15px;
+    color: white;
+    }

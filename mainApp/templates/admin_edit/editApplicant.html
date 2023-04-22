@@ -6,8 +6,13 @@
     <h1>Update Applicant</h1>
     <form method="post" enctype="multipart/form-data">
         <input type="hidden" name="id" value="{{ applicant.id }}">
-        <p>User ID: <input type="text" name="user_id" value="{{ applicant.user_id }}" required></p>
-        <p>Job ID: <input type="text" name="job_id" value="{{ applicant.job_id }}" required></p>
+        <p><input type="hidden" name="user_id" value="{{ applicant.user_id }}" required></p>
+        <label for="job_id">Job:</label>
+        <select id="job_id" name="job_id">
+        {% for job in jobs %}
+          <option>{{ job.name }}</option>
+        {% endfor %}
+      </select><br><br>
         <p>Date Submitted: <input type="date" name="date_submitted" value="{{ applicant.date_submitted }}" required></p>
         <p>Status:
             <select class="form-control" id="status" name="status">

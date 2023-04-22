@@ -3,12 +3,13 @@
 {% block body %}
     {% include 'sidebar.html' %}
 	<div class="main-content">
-    <h1>All Applicants</h1>
+    <h1>All Applicants</h1><br>
+      <h2>Total: {{applicants|length}}</h2>
     <table>
       <thead>
         <tr>
           <th>ID</th>
-          <th>User ID</th>
+          <th>Email</th>
           <th>Job ID</th>
           <th>Date Submitted</th>
           <th>Status</th>
@@ -23,7 +24,7 @@
         <tr>
           <td>{{ applicant.id }}</td>
           <td>{{ users[applicant.user_id - 1].email }}</td>
-          <td>{{ applicant.job_id }}</td>
+          <td>{{ applicant.job.name|title }}</td>
           <td>{{ applicant.date_submitted }}</td>
           <td {% if applicant.status == 'Accepted' %}style='color:green;'{% endif %}
           {% if applicant.status == 'Disapproved' %}style='color:red;'{% endif %}>

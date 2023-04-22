@@ -3,7 +3,8 @@
 {% block body %}
     {% include 'sidebar.html' %}
 	<div class="main-content">
-		<h1>Project List</h1>
+		<h1>Project List</h1><br>
+      <h2>Total: {{projects|length}}</h2>
 			<a href="{{url_for('auth.addProject')}}"><button>Add Project</button></a>
     <table>
       <thead>
@@ -26,7 +27,11 @@
           <td>{{ project.project_description }}</td>
           <td>{{ project.date_commenced }}</td>
           <td>{{ project.date_completed }}</td>
+          {% if project.client_id == 0 %}
+          <td>None</td>
+          {% else %}
           <td>{{ project.client.name }}</td>
+          {% endif %}
           <td><a href="{{url_for('auth.editProject',id=project.id)}}"><button>Edit</button></a></td>
 		  <td><a href="{{url_for('auth.deleteProject', id=project.id)}}"><button>Delete</button></a></td>
         </tr>

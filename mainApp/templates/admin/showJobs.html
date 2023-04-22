@@ -3,7 +3,8 @@
 {% block body %}
     {% include 'sidebar.html' %}
 	<div class="main-content">
-    <h1>Job Listings</h1>
+    <h1>Job Listings</h1><br>
+      <h2>Total: {{jobs|length}}</h2>
       	<a href="{{url_for('auth.addJob')}}"><button>Add Job</button></a>
     <table>
       <thead>

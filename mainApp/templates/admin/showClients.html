@@ -4,6 +4,7 @@
     {% include 'sidebar.html' %}
 	<div class="main-content">
     <h1>Client List</h1>
+      <h2>Total: {{clients|length}}</h2>
     <a href="{{url_for('auth.addClient')}}"><button>Add Client</button></a>
     <table>
       <thead>
@@ -14,7 +15,6 @@
           <th>Phone</th>
           <th>Email</th>
           <th>Contact Person</th>
-          <th>Contact Phone</th>
           <th>Contact Email</th>
           <th>Edit</th>
 		  <th>Delete</th>
@@ -29,7 +29,6 @@
             <td>{{ client.phone }}</td>
             <td>{{ client.email }}</td>
             <td>{{ client.contact_person }}</td>
-            <td>{{ client.contact_phone }}</td>
             <td>{{ client.contact_email }}</td>
 			<td><a href="{{url_for('auth.editClient',id=client.id)}}"><button>Edit</button></a></td>
 			<td><a href="{{url_for('auth.deleteClient', id=client.id)}}"><button>Delete</button></a></td>
