@@ -14,7 +14,7 @@ def create_app():
     app = Flask(__name__)
     UPLOAD_FOLDER = 'static/profiles/'
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-    app.config['SECRET_KEY'] = 'gaa gaa'
+    app.config['SECRET_KEY'] = 'secret_key'
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app)
     login_manager = LoginManager()

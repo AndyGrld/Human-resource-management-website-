@@ -13,14 +13,14 @@
         {% for user in users %}
             {% if user.EMPLOYEE %}
             {% else %}
-          <option>{{ user.firstName|title +" "+user.middleName|title +" "+user.lastName|title }}</option>
+          <option value="{{user.id}}">{{ user.firstName|title +" "+user.middleName|title +" "+user.lastName|title }}</option>
             {% endif %}
             {% endfor %}
       </select><br><br>
         <label for="job_id">Job:</label>
         <select id="job_id" name="job_id">
         {% for job in jobs %}
-          <option>{{ job.name|title }}</option>
+          <option value="{{job.id}}">{{ job.name|title }}</option>
         {% endfor %}
       </select><br><br>
       <label for="about">About:</label>
@@ -35,15 +35,16 @@
       <input type="checkbox" id="isManager" name="isManager"><br><br>
       <label for="manager_id">Manager ID:</label>
       <select id="manager_id" name="manager_id">
-          <option>None</option>>
+          <option>None</option>
         {% for employee in employees %}
           {% if employee.isManager %}
-          <option>{{ employee.user.firstName|title +" "+ employee.user.middleName|title +" "+ employee.user.lastName|title }}</option>
+          <option value="{{employee.id}}">{{ employee.user.firstName|title +" "+ employee.user.middleName|title +" "+ employee.user.lastName|title }}</option>
           {% endif %}
         {% endfor %}
       </select><br><br>
       <label for="PROJECT">Projects:</label>
       <select id="PROJECT" name="PROJECT" multiple>
+          # Shows only uncompleted projects
         {% for project in projects %}
           {% if not project.isCompleted %}
           <option value="{{ project.id }}">{{ project.name|title }}</option>

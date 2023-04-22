@@ -249,7 +249,7 @@ def addEmployee():
         new_employee = Employee(
             user_id=user_id,
             job_id=job_id,
-            date_employed=datetime.datetime.today(),
+            date_employed=datetime.today(),
             about=about,
             skills=skills,
             performance=performance,

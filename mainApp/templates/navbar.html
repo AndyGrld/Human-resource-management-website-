@@ -3,7 +3,7 @@
     <ul>
         <li><a href="/">Home</a></li>
         {% if user.is_authenticated %}
-        {% if user.EMPLOYEE or user.is_admin %}
+        {% if user.EMPLOYEE %}
         <li><a href="{{ url_for('views.employees')}}">Employees</a></li>
         <li><a href="{{ url_for('views.mydashboard')}}">Dashboard</a></li>
         {% endif %}
