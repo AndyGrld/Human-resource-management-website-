@@ -28,7 +28,7 @@ def allowed_file(filename):
 def send_mail(C_user):
     you = C_user.email
     message = MIMEMultipart()
-    message['subject'] = "Welcome to UMat"
+    message['subject'] = "Welcome"
     message['from'] = me
     message['to'] = you
     message.attach(MIMEText(f"Your account has been successfully created"))
