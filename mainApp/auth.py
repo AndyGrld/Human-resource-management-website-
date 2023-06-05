@@ -11,7 +11,6 @@ from mainApp.models import User
 from . import db, cache
 import mediapipe as mp
 import uuid as uuid
-import cv2 as cv
 import smtplib
 import os
 
@@ -548,17 +547,6 @@ def sign_up():
             pic.save(os.path.join("mainApp/static/profiles/", pic_name))
         else:
             flash('Please upload a picture', category='error')
-            return render_template('signup.html', user=current_user)
-
-        mpFace = mp.solutions.face_detection
-        face = mpFace.FaceDetection(min_detection_confidence=0.9)
-        frame = cv.imread(os.path.join("mainApp/static/profiles/", pic_name))
-        gray = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
-        results = face.process(gray)
-        if results.detections:
-            pass
-        else:
-            flash('Please upload a picture of your face', category='error')
             return render_template('signup.html', user=current_user)
 
         admin_present = User.query.all()
