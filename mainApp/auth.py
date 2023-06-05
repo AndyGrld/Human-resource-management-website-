@@ -9,7 +9,6 @@ from .models import User, Employee, Client, Projects, Job, Applicant
 from email.mime.text import MIMEText
 from mainApp.models import User
 from . import db, cache
-import mediapipe as mp
 import uuid as uuid
 import smtplib
 import os
